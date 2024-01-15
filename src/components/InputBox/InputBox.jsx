@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import SendIcon from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/vector.svg'
+import sendingAnimationData from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Animations/Sending-Animation.json';
+import SendingAnimation from '../SendingAnimation/SendingAnimation';
 
-const InputBox = ({ onSendMessage }) => {
+const InputBox = ({ onSendMessage, isSending }) => {
   const [message, setMessage] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const resizeTextarea = (e) => {
     const minHeight = 58; // Set the minimum height
@@ -18,7 +21,7 @@ const InputBox = ({ onSendMessage }) => {
 
   // Event handler for sending a message
   const handleSendClick = () => {
-    if (message.trim() !== '') {
+    if (message.trim() !== '' && !isSending) {
       onSendMessage(message);
       setMessage('');
     }
@@ -26,7 +29,7 @@ const InputBox = ({ onSendMessage }) => {
 
   // Event handler for the Enter key
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isSending) {
       e.preventDefault(); // Prevent the default action to avoid a new line
       handleSendClick();
     }
@@ -46,10 +49,26 @@ const InputBox = ({ onSendMessage }) => {
         onInput={resizeTextarea} // Adjust the height when the user types
       />
       <button
-        className="send-button"
+        className={`send-button ${isSending ? 'transition' : ''}`}
         onClick={handleSendClick}
+        disabled={isButtonDisabled || isSending} // Disable the button when sending or disabled
       >
-        <img src={SendIcon} alt="Send" className="send-icon" />
+        <div className="transition">
+          {isSending ? (
+            <SendingAnimation
+              animationData={sendingAnimationData}
+              scale={1}
+              style={{ opacity: 1, display: 'block' }}
+            />
+          ) : (
+            <img
+              src={SendIcon}
+              alt="Send"
+              className="send-icon"
+              style={{ opacity: 1, display: 'block' }}
+            />
+          )}
+        </div>
       </button>
     </div>
   );

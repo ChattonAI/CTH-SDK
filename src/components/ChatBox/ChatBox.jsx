@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ChatHeader from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/ChatHeader/ChatHeader.jsx';
 import MessageList from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/MessageList/MessageList.jsx';
 import InputBox from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/InputBox/InputBox.jsx';
@@ -6,69 +6,72 @@ import PredefinedOptions from '/Users/neliobarbosa/Coding/chat-sdk-test/src/comp
 import ChatIcon from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/ChatIcon/ChatIcon.jsx';
 import typingAnimationData from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Animations/Typing-Indicator-Animation.json';
 import TypingIndicator from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/TypingIndicator/TypingIndicator.jsx';
+import SendingAnimation from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/SendingAnimation/SendingAnimation.jsx';
+import messageListContainer from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/MessageList/MessageList.jsx';
 
 
 // Main ChatBox Component
-const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, messages, onSendMessage}) => {
+const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages }) => {
   const [isSending, setIsSending] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [predefinedOptions, setPredefinedOptions] = useState(predefinedMessages); // renamed state variable
   const [businessId, setBusinessId] = useState('');
   const [isClosing, setIsClosing] = useState(false);
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);
+  const messageListContainer = useRef(null);
 
-
-  console.log("Predefined Messages:", predefinedMessages);
-  console.log("Show Predefined Options:", showPredefinedOptions);
+  const appendMessage = (messageText, isUser) => {
+      setMessages(prevMessages => [...prevMessages, { text: messageText, isUser }]);
+  };
 
   // A function to handle sending messages, both user-typed and predefined
   const sendMessage = async (content, isUser = true) => {
-  setIsChatbotTyping(true); // Start the typing animation
-  // Pass the message content to the parent's onSendMessage
-  onSendMessage(content);
+    setIsChatbotTyping(true); // Start the typing animation
 
-  // If the message is from the user, send to the chatbot's endpoint
-  if (isUser) {
-    setIsSending(true); // Start the sending animation
+    appendMessage(content, true); // true indicates it's a user message
 
-    const apiEndpoint = 'https://ipcv9qzgyh.execute-api.us-east-1.amazonaws.com/Test';
-    const payload = {
-      message: content,
-      BusinessID: businessId,
-      session_id: currentSessionId,
-    };
-
-    try {
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Append bot response to messages (parent will handle it)
-        onSendMessage(data.body, false);
-
-        // Update the current session ID
-        if (data.session_id) {
-          setCurrentSessionId(data.session_id);
-        }
-      } else {
-        console.error('API request failed:', response);
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
-      setIsSending(false); // Stop the sending animation
-      setIsChatbotTyping(false); // Stop the typing animation
+    if (isUser && showPredefinedOptions) {
+      onHidePredefined(); // Hide predefined options after first user message
+      showPredefinedOptions = false; // Update local state to prevent multiple calls
     }
-  }
-};
 
+    if (isUser) {
+      setIsSending(true); // Start the sending animation
 
+      const apiEndpoint = 'https://ipcv9qzgyh.execute-api.us-east-1.amazonaws.com/Test';
+      const payload = {
+        message: content,
+        BusinessID: businessId,
+        session_id: currentSessionId,
+      };
+
+      try {
+        const response = await fetch(apiEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          appendMessage(data.body, false); // false indicates it's a chatbot message
+          // Update the current session ID if provided
+          if (data.session_id) {
+            setCurrentSessionId(data.session_id);
+          }
+        } else {
+          console.error('API request failed:', response);
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+      } finally {
+        setIsSending(false);
+        setIsChatbotTyping(false);
+      }
+    }
+  };
 
   const handleClose = () => {
     setIsClosing(true); // Start the closing animation
@@ -86,13 +89,16 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
   // Define a function that updates the component's state based on the input options
   const initSDK = (options) => {
     console.log("Options in initSDK: ", options); // Debug log
-
+    // Set the business ID
+    setBusinessId(options.businessId);
+    
     // Set predefined messages and show options
     setPredefinedOptions(options.predefinedMessages || ["Default message 1", "Default message 2"]);
   };
 
   // Attach the init function to the window object
-  window.ChattonAI_Chatbot_SDK = { init: initSDK };
+    window.ChattonAI_Chatbot_SDK = { init: initSDK };
+    
 
   // Clean up the global function when the component unmounts
   return () => {
@@ -101,30 +107,27 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
 }, []);
 
 
-
-
 // In your JSX, use this function to dynamically set the class
-  return (
+return (
     <div className={chatBoxClasses}>
       <ChatHeader onClose={handleClose} />
-      <div className="message-list-container flex-grow" style={{ paddingLeft: '0.800rem', paddingRight: '0.400rem' }}>
+      <div className="message-list-container flex-grow" style={{ paddingLeft: '0.800rem', paddingRight: '0.400rem' }} ref={messageListContainer}>
 
+      {/* Pass messages prop directly to MessageList */}
       <MessageList messages={messages} isTyping={isChatbotTyping} />
-      </div>
-      {/* Conditionally render predefined options using predefinedOptions state */}
-      {showPredefinedOptions && predefinedOptions.length > 0 && (
-        // In ChatBox component
-      <PredefinedOptions 
-        onSendMessage={sendMessage} 
-        predefinedMessages={predefinedMessages} 
-        isVisible={showPredefinedOptions}
-      />
 
+      </div>
+      {/* Conditionally render predefined options */}
+      {showPredefinedOptions && predefinedOptions.length > 0 && (
+        <PredefinedOptions 
+          onSendMessage={sendMessage} 
+          predefinedMessages={predefinedMessages} 
+          isVisible={showPredefinedOptions}
+        />
       )}
       <InputBox onSendMessage={sendMessage} isSending={isSending} />
     </div>
-  );
-
+);
 };
 
 

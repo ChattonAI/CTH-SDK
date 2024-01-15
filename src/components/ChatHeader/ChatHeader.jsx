@@ -5,7 +5,7 @@ const ChatHeader = ({ onClose }) => {
   return (
     <div className="chat-header"> {/* Removed the inline styles for width, height, padding, and border-radius */}
       {/* Close button with icon */}
-     <button className="focus:outline-none" onClick={onClose}>
+     <button className="close-icon focus:outline-none" onClick={onClose}>
         <img className="w-3 h-3" src={CloseIcon} alt="Close" />
       </button>
       
@@ -16,14 +16,14 @@ const ChatHeader = ({ onClose }) => {
         
         {/* Subtitle "powered by chattonai" */}
         <div className="powered-by text-neutral-400 text-xs font-light uppercase leading-3" style={{ fontSize: '0.5rem' }}>
-          powered by chattonai
+          powered <a href="https://neliobarbosa67.wixstudio.io/mysite" style={{ textDecoration: 'none' }}>chattonai</a>
         </div>
       </div>
       
       {/* Header Icon */}
       <img
-        className="w-12 h-12 rounded-full" // Adjusted size using Tailwind's size notation
-        src={require("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/image 14.png")} // Replace with your actual header icon path
+        className="w-4 h-8" // Adjusted size using Tailwind's size notation
+        src={require("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/SvgjsG1174.png")} // Replace with your actual header icon path
         alt="Header Icon"
       />
     </div>

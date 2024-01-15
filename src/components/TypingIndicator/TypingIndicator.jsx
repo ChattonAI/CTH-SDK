@@ -5,6 +5,10 @@ const TypingIndicator = ({ isTyping, animationData }) => {
   // Create a ref for the Lottie instance
   const lottieRef = useRef(null);
 
+  const handleClick = (e) => {
+    e.preventDefault(); // Prevent default click behavior
+  };
+
   useEffect(() => {
     if (isTyping && lottieRef.current) {
       lottieRef.current.play();
@@ -14,7 +18,7 @@ const TypingIndicator = ({ isTyping, animationData }) => {
   }, [isTyping]);
 
   return (
-    <div className="typing-indicator">
+    <div className="typing-indicator" onClick={handleClick}>
       <Lottie
         options={{
           loop: true,
@@ -24,8 +28,8 @@ const TypingIndicator = ({ isTyping, animationData }) => {
         height={50}
         width={50}
         isStopped={!isTyping}
-        isPaused={!isTyping}
         ref={lottieRef}
+        isClickToPauseDisabled={true} // Disable click-to-pause functionality
       />
     </div>
   );

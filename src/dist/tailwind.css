@@ -730,7 +730,7 @@ select {
   right: 60px;
   bottom: 60px;
   display: flex;
-  min-height: 600px;
+  height: 600px;
   width: 389px;
   flex-direction: column;
   border-radius: 1rem;
@@ -766,6 +766,14 @@ select {
 }
 .powered-by {
     font-size: 0.75rem;
+  }
+.close-icon {
+    transition: transform 0.4s ease-in-out;
+  }
+.close-icon:hover {
+    transform: rotate(360deg);
+    opacity: 0.5;
+    transition: transform 0.3s ease-in-out;
   }
 /* Message list styles */
 .message-list-container {
@@ -820,6 +828,12 @@ select {
 .send-button:hover {
     transform: scale(0.95); /* Shrink the button when hovered */
   }
+.transition {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+.transition.opacity-0 {
+    opacity: 0;
+  }
 .send-icon {
   height: 100%;
   width: 100%; /* Ensures the icon fills the button */
@@ -864,13 +878,42 @@ select {
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
+/* Predefined options animation*/
+/* Fade out animation */
+@keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+.fade-out {
+    animation: fadeOut 0.5s forwards; /* forwards ensures the end state (opacity: 0) is maintained after animation completes */
+  }
+/* Slide-in animation */
+@keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+.slide-in {
+    animation: slideIn 0.3s ease-out; /* Adjust duration and easing as desired */
+  }
 /* Typing indicator styles */
 .typing-indicator-container {
     align-self: flex-start; /* Aligns to the left */
     max-width: 50px; /* Adjust as needed */
+    height: 100px;
     margin-left: 10px; /* Or adjust to align with your chatbot messages */
   }
-/*chatIcon*/
 .chat-icon {
   position: fixed;
   bottom: 2.5rem;
@@ -879,15 +922,14 @@ select {
   width: 5rem;
   cursor: pointer;
   border-radius: 9999px;
-  background-color: rgb(39 39 42 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.75;
-  transition-property: all;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    background-size: cover;
+    transition: background-image 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    background-image: url("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/Frame 17.png"); /* Default image */
 }
 .chat-icon:hover {
-  --tw-bg-opacity: 0.9;
-}
+    background-image: url("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/white logo with gradient.png"); /* Hover image */
+    transition: 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
 /*chatIcon animation*/
 @keyframes slideAndBounce {
     0% {
@@ -928,8 +970,8 @@ select {
     animation: slideOut 0.7s ease-in forwards; /* Use forwards to maintain the final state */
 }
 /* Custom button and input styles can be added here */
-.visible {
-  visibility: visible;
+.block {
+  display: block;
 }
 .inline {
   display: inline;
@@ -940,17 +982,17 @@ select {
 .hidden {
   display: none;
 }
-.h-12 {
-  height: 3rem;
-}
 .h-3 {
   height: 0.75rem;
 }
-.w-12 {
-  width: 3rem;
+.h-8 {
+  height: 2rem;
 }
 .w-3 {
   width: 0.75rem;
+}
+.w-4 {
+  width: 1rem;
 }
 .max-w-\[calc\(100\%-3rem\)\] {
   max-width: calc(100% - 3rem);
@@ -960,6 +1002,9 @@ select {
 }
 .flex-col {
   flex-direction: column;
+}
+.items-end {
+  align-items: flex-end;
 }
 .items-center {
   align-items: center;
@@ -982,9 +1027,6 @@ select {
 .rounded-2xl {
   border-radius: 1rem;
 }
-.rounded-full {
-  border-radius: 9999px;
-}
 .border {
   border-width: 1px;
 }
@@ -995,9 +1037,6 @@ select {
 .bg-zinc-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
-}
-.object-cover {
-  object-fit: cover;
 }
 .p-1 {
   padding: 0.25rem;
@@ -1037,14 +1076,19 @@ select {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 
 /* Custom Styles for Chat UI */
 
 /* Custom utilities */
 
-
 /* Scrollbar */
-
 .scrollbar::-webkit-scrollbar {
   width: 11px;
 }
@@ -1067,8 +1111,6 @@ select {
 .scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
-
-
 
   .no-scrollbar::-webkit-scrollbar {
   height: 0px;

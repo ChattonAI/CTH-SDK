@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Styles for Chat UI */
+@layer components {
+
+  /* Chat box styles */
+  .chat-box {
+    @apply flex flex-col w-[389px] min-h-[600px] bg-neutral-900 rounded-2xl bg-opacity-75 backdrop-blur-3xl pb-1.5 fixed right-[60px] bottom-[60px]; 
+  }
+
+
+  .chat-box-container {
+    transition: transform 0.5s ease-out;
+  }
+
+  /* Header styles */
+  .chat-header {
+    @apply w-full h-12 flex justify-between items-center px-4 bg-zinc-800 bg-opacity-75 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
+  }
+
+  .header-content {
+    @apply flex flex-col items-center gap-0; /* Removed the pl-5 to match the centered content */
+  }
+
+  .assistant-icon {
+    @apply aspect-square object-contain object-center w-12 h-12 overflow-hidden shrink-0 my-auto;
+  }
+
+  .powered-by {
+    font-size: 0.75rem;
+  }
+
+  /* Message list styles */
+  .message-list-container {
+    @apply max-h-[700px] overflow-auto; /* This allows for scrolling */
+    @apply flex flex-col gap-2;
+  }
+
+  .message-item {
+    @apply bg-zinc-800 bg-opacity-80 rounded-2xl p-2 m-2;
+  }
+
+  /* Message styles */
+  .message {
+    @apply text-custom-light-gray text-sm backdrop-blur-[50px] bg-custom-gray bg-opacity-80 justify-center items-stretch px-4 py-3 rounded-custom border-custom border-solid border-custom-gray border-opacity-80 break-words;
+  }
+
+  .user-message {
+    @apply bg-zinc-800 text-neutral-400 text-sm p-3 rounded-2xl self-end break-words;
+  }
+
+  .assistant-message {
+    @apply border-1.5 border-zinc-800 text-neutral-400 text-sm p-3 rounded-2xl self-start break-words;
+  }
+
+  .message-item-user {
+    @apply bg-neutral-400;
+  }
+
+  .message-item-assistant {
+    @apply bg-zinc-800;
+  }
+
+  /* Input box */
+  .chat-input {
+    @apply h-[58px] text-neutral-400 bg-zinc-800 bg-opacity-80 rounded-2xl;
+    @apply border-none resize-none; /* Removes border and resize handle */
+    @apply p-3; /* Padding inside the input box */
+    @apply w-full; /* Full width */
+  }
+  
+  /* Send button */
+  .send-button {
+    @apply w-[58px] h-[58px] flex items-center justify-center shrink-0; /* Adjust width as necessary */
+    transition: background-color 0.3s ease-in-out; /* Add transition for smooth effect */
+  }
+
+  .send-button:hover {
+    transform: scale(0.95); /* Shrink the button when hovered */
+  }
+
+  .send-icon {
+    @apply w-full h-full; /* Ensures the icon fills the button */
+  }
+
+  /* Predefined options */
+  .predefined-options-container {
+    @apply flex flex-wrap justify-center items-center bg-opacity-90 rounded-2xl;
+  }
+  
+  .predefined-option {
+    @apply text-white bg-zinc-800 bg-opacity-80 hover:bg-opacity-100 focus:bg-opacity-100 hover:backdrop-blur-sm focus:backdrop-blur-sm transition-all duration-300 ease-in-out text-sm font-medium py-2 px-6 rounded-full cursor-pointer m-2;
+  }
+
+
+  /* Typing indicator styles */
+  .typing-indicator-container {
+    align-self: flex-start; /* Aligns to the left */
+    max-width: 50px; /* Adjust as needed */
+    margin-left: 10px; /* Or adjust to align with your chatbot messages */
+  }
+
+  /*chatIcon*/
+  .chat-icon {
+    @apply fixed bottom-10 right-10 w-20 h-20 rounded-full bg-zinc-800 bg-opacity-75 hover:bg-opacity-90 cursor-pointer transition-all ease-in-out duration-300;
+  }
+
+  .chat-icon-hover {
+    @apply mix-blend-difference;
+  }
+
+  /*chatIcon animation*/
+  @keyframes slideAndBounce {
+    0% {
+      transform: translateY(100vh); /* Start off-screen */
+      opacity: 0;
+    }
+    70% {
+      transform: translateY(0); /* End at the final position */
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(-10px); /* Bounce up a little */
+      opacity: 1;
+    }
+    90% {
+      transform: translateY(0); /* Settle back into final position */
+      opacity: 1;
+    }
+  }
+
+  .chat-box-slide-and-bounce {
+    @apply duration-700 ease-out; /* You can adjust the timing as you like */
+    animation: slideAndBounce 0.7s ease-out forwards; /* Use forwards to maintain the final state */
+  }
+
+  @keyframes slideOut {
+  0% {
+    transform: translateY(0); /* Start at the current position */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh); /* Slide off-screen */
+    opacity: 0;
+  }
+  }
+
+  .chat-box-slide-out {
+    @apply duration-700 ease-in; /* You can adjust the timing as you like */
+    animation: slideOut 0.7s ease-in forwards; /* Use forwards to maintain the final state */
+  }
+
+
+
+  /* Custom button and input styles can be added here */
+
+}
+
+/* Custom utilities */
+@layer utilities {
+  .custom-box-sizing {
+    box-sizing: content-box;
+  }
+
+  .content-box-sizing {
+    box-sizing: content-box;
+  }
+
+  .test {
+    box-sizing: border-box;
+  }
+}
+
+
+/* Scrollbar */
+
+.scrollbar::-webkit-scrollbar {
+  width: 11px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(15, 15, 15);
+  border-radius: 10px;
+  border: 2px solid rgb(38, 38, 38);
+  padding-left: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(100, 100, 100);
+}
+
+.scrollbar::-webkit-scrollbar-thumb:active {
+  background: rgb(100, 100, 100);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+
+  .no-scrollbar::-webkit-scrollbar {
+    @apply w-0 h-0; /* Remove scrollbar size */
+  }
+
+  .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-zinc-700; /* Scrollbar thumb styling */
+  }
+
+  .scrollbar-track-transparent::-webkit-scrollbar-track {
+    @apply bg-transparent; /* Scrollbar track styling */
+  }

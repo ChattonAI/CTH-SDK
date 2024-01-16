@@ -924,10 +924,10 @@ select {
   border-radius: 9999px;
     background-size: cover;
     transition: background-image 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    background-image: url("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/Frame 17.png"); /* Default image */
+    background-image: url("../Images/Frame 17.png"); /* Default image */
 }
 .chat-icon:hover {
-    background-image: url("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/white logo with gradient.png"); /* Hover image */
+    background-image: url("../Images/white logo with gradient.png"); /* Hover image */
     transition: 0.3s ease-in-out, background-color 0.3s ease-in-out;
   }
 /*chatIcon animation*/

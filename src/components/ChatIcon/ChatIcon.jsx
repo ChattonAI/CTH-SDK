@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChatBox from './ChatBox/ChatBox.jsx';
+import ChatBox from '../ChatBox/ChatBox';
 
 const ChatIcon = ({ predefinedMessages }) => {
     const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);

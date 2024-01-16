@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import LinkifiedText from '/Users/neliobarbosa/Coding/chat-sdk-test/src/utils/linkify.jsx'; // Adjust the import path to where you place the LinkifiedText.js file
+import LinkifiedText from '../../utils/linkify.jsx';
 import MessageItem from '../MessageItem/MessageItem';
-import typingAnimationData from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Animations/Typing-Indicator-Animation.json';
-import TypingIndicator from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/TypingIndicator/TypingIndicator.jsx';  
+import typingAnimationData from '../../Animations/Typing-Indicator-Animation.json';
+import TypingIndicator from '../TypingIndicator/TypingIndicator.jsx';  
 
 const MessageList = ({ messages, isTyping, messageListRef }) => {
   const containerRef = useRef(null);

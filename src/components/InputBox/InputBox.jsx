@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import SendIcon from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/vector.svg'
-import sendingAnimationData from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Animations/Sending-Animation.json';
+import SendIcon from '../../Images/vector.svg'
+import sendingAnimationData from '../../Animations/Sending-Animation.json';
 import SendingAnimation from '../SendingAnimation/SendingAnimation';
 
 const InputBox = ({ onSendMessage, isSending }) => {

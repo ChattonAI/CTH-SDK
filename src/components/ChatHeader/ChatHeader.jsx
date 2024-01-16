@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseIcon from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/exit.svg';
+import CloseIcon from '../../Images/exit.svg';
 
 const ChatHeader = ({ onClose }) => {
   return (

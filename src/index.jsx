@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import ChatIcon from './components/ChatIcon/ChatIcon';
-import '/Users/neliobarbosa/Coding/chat-sdk-test/src/dist/tailwind.css';
+import './dist/tailwind.css';
 
 window.ChattonAI_Chatbot_SDK = {
   init: function (options) {

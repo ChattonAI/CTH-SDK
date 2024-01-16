@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import ChatHeader from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/ChatHeader/ChatHeader.jsx';
-import MessageList from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/MessageList/MessageList.jsx';
-import InputBox from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/InputBox/InputBox.jsx';
-import PredefinedOptions from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/PredefinedOptions/PredefinedOptions.jsx';
-import ChatIcon from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/ChatIcon/ChatIcon.jsx';
-import typingAnimationData from '/Users/neliobarbosa/Coding/chat-sdk-test/src/Animations/Typing-Indicator-Animation.json';
-import TypingIndicator from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/TypingIndicator/TypingIndicator.jsx';
-import SendingAnimation from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/SendingAnimation/SendingAnimation.jsx';
-import messageListContainer from '/Users/neliobarbosa/Coding/chat-sdk-test/src/components/MessageList/MessageList.jsx';
+import ChatHeader from '../ChatHeader/ChatHeader.jsx';
+import MessageList from '../MessageList/MessageList.jsx';
+import InputBox from '../InputBox/InputBox.jsx';
+import PredefinedOptions from '../PredefinedOptions/PredefinedOptions.jsx';
+import ChatIcon from '../ChatIcon/ChatIcon.jsx';
+import TypingIndicator from '../TypingIndicator/TypingIndicator.jsx';
+import SendingAnimation from '../SendingAnimation/SendingAnimation.jsx';
+import messageListContainer from '../MessageList/MessageList.jsx';
 
 
 // Main ChatBox Component

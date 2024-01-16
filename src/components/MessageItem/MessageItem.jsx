@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkifiedText from '/Users/neliobarbosa/Coding/chat-sdk-test/src/utils/linkify.jsx'; // Adjust the import path to where you place the LinkifiedText.js file
+import LinkifiedText from '../../utils/linkify.jsx';
 
 const MessageItem = ({ message, isUser }) => {
   // Styles for user and assistant message bubbles

@@ -5,7 +5,6 @@ const linkify = (text) => {
         if (text === undefined) {
         return []; // Return an empty array or some default value
     }
-    console.log("linkify text: ", text);
     const extendedMarkdownLinkRegex =
         /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)\s*(?:【\d+†source】)?/gi;
 

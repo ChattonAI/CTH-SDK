@@ -5,6 +5,7 @@ import './dist/tailwind.css';
 
 window.ChattonAI_Chatbot_SDK = {
   init: function (options) {
+    const { businessId } = options;
     // The container for the chat icon, not the chat box
     const chatIconContainerId = 'chattonai-chat-icon-container';
     let container = document.getElementById(chatIconContainerId);
@@ -19,7 +20,7 @@ window.ChattonAI_Chatbot_SDK = {
     const root = createRoot(container);
     root.render(
       <React.StrictMode>
-        <ChatIcon {...options} />
+        <ChatIcon {...options} businessId={businessId} />
       </React.StrictMode>
     );
   }

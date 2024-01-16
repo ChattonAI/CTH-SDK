@@ -10,11 +10,10 @@ import messageListContainer from '../MessageList/MessageList.jsx';
 
 
 // Main ChatBox Component
-const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages }) => {
+const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, businessId }) => {
   const [isSending, setIsSending] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [predefinedOptions, setPredefinedOptions] = useState(predefinedMessages); // renamed state variable
-  const [businessId, setBusinessId] = useState('');
   const [isClosing, setIsClosing] = useState(false);
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);
   const messageListContainer = useRef(null);
@@ -82,29 +81,6 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
 
   /* ChatBox animation */
   const chatBoxClasses = `chat-box ${isClosing ? 'chat-box-slide-out' : (isVisible ? 'chat-box-slide-and-bounce' : '')}`;
-
-  // Initialization using useEffect hook
-  useEffect(() => {
-  // Define a function that updates the component's state based on the input options
-  const initSDK = (options) => {
-    console.log("Options in initSDK: ", options); // Debug log
-    // Set the business ID
-    setBusinessId(options.businessId);
-    
-    // Set predefined messages and show options
-    setPredefinedOptions(options.predefinedMessages || ["Default message 1", "Default message 2"]);
-  };
-
-  // Attach the init function to the window object
-    window.ChattonAI_Chatbot_SDK = { init: initSDK };
-    
-
-  // Clean up the global function when the component unmounts
-  return () => {
-    window.ChattonAI_Chatbot_SDK.init = () => { };
-  };
-}, []);
-
 
 // In your JSX, use this function to dynamically set the class
 return (

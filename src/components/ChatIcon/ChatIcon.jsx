@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ChatBox from '../ChatBox/ChatBox';
 
-const ChatIcon = ({ predefinedMessages }) => {
+const ChatIcon = ({ predefinedMessages, businessId }) => {
     const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
     const [showPredefined, setShowPredefined] = useState(true);
     const [messages, setMessages] = useState([]);
@@ -32,6 +32,7 @@ const ChatIcon = ({ predefinedMessages }) => {
                     onHidePredefined={hidePredefinedMessages}
                     messages={messages}
                     setMessages={setMessages}
+                    businessId={businessId}
                 />
             )}
         </>

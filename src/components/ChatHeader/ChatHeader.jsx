@@ -1,5 +1,6 @@
 import React from 'react';
 import CloseIcon from '../../Images/exit.svg';
+import HeaderIcon from '../../Images/SvgjsG1174.png';
 
 const ChatHeader = ({ onClose }) => {
   return (
@@ -23,7 +24,7 @@ const ChatHeader = ({ onClose }) => {
       {/* Header Icon */}
       <img
         className="w-4 h-8" // Adjusted size using Tailwind's size notation
-        src={require("/Users/neliobarbosa/Coding/chat-sdk-test/src/Images/SvgjsG1174.png")} // Replace with your actual header icon path
+        src={HeaderIcon} // Replace with your actual header icon path
         alt="Header Icon"
       />
     </div>

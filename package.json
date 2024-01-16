@@ -1,233 +1,237 @@
 {
-	"name": "chat-sdk-test",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"build-css": "postcss src/styles/tailwind.css -o /Users/neliobarbosa/Coding/chat-sdk-test/src/dist/tailwind.css",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"@tailwindcss/forms": "^0.5.7",
-		"@tailwindcss/typography": "^0.5.10",
-		"autoprefixer": "^10.4.16",
-		"postcss": "^8.4.32",
-		"postcss-cli": "^11.0.0",
-		"postcss-preset-env": "^9.3.0",
-		"tailwindcss": "^3.4.0"
-	},
-	"Transform": "AWS::Serverless-2016-10-31",
-	"Resources": {
-		"Api": {
-			"Type": "AWS::Serverless::Api",
-			"Properties": {
-				"Name": {
-					"Fn::Sub": [
-						"${ResourceName} From Stack ${AWS::StackName}",
-						{
-							"ResourceName": "Api"
-						}
-					]
-				},
-				"StageName": "Prod",
-				"DefinitionBody": {
-					"openapi": "3.0",
-					"info": {},
-					"paths": {
-						"/response": {
-							"get": {
-								"x-amazon-apigateway-integration": {
-									"httpMethod": "POST",
-									"type": "aws_proxy",
-									"uri": {
-										"Fn::Sub": "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Function.Arn}/invocations"
-									}
-								},
-								"responses": {}
-							}
-						}
-					}
-				},
-				"EndpointConfiguration": "REGIONAL",
-				"TracingEnabled": true,
-				"Auth": {
-					"DefaultAuthorizer": "AWS_IAM"
-				},
-				"Cors": {
-					"MaxAge": 5
-				}
-			}
-		},
-		"Function": {
-			"Type": "AWS::Serverless::Function",
-			"Properties": {
-				"Description": {
-					"Fn::Sub": [
-						"Stack ${AWS::StackName} Function ${ResourceName}",
-						{
-							"ResourceName": "Function"
-						}
-					]
-				},
-				"CodeUri": "src/Function",
-				"Handler": "index.handler",
-				"Runtime": "nodejs20.x",
-				"MemorySize": 3008,
-				"Timeout": 30,
-				"Tracing": "Active",
-				"Environment": {
-					"Variables": {
-						"EXTERNALRDS_PORT": "!Ref ExternalRDSPort",
-						"EXTERNALRDS_HOSTNAME": "!Ref ExternalRDSHostname",
-						"EXTERNALRDS_SECRETARN": "!Ref ExternalRDSSecretArn",
-						"TABLE_TABLE_NAME": {
-							"Ref": "Table"
-						},
-						"TABLE_TABLE_ARN": {
-							"Fn::GetAtt": [
-								"Table",
-								"Arn"
-							]
-						},
-						"EXTERNALRDS_PORT_2": {
-							"Ref": "ExternalRDSPort"
-						},
-						"EXTERNALRDS_HOSTNAME_2": {
-							"Ref": "ExternalRDSHostname"
-						},
-						"EXTERNALRDS_SECRETARN_2": {
-							"Ref": "ExternalRDSSecretArn"
-						}
-					}
-				},
-				"Policies": [
-					{
-						"AWSSecretsManagerGetSecretValuePolicy": {
-							"SecretArn": {
-								"Ref": "ExternalRDSSecretArn"
-							}
-						}
-					},
-					{
-						"DynamoDBCrudPolicy": {
-							"TableName": {
-								"Ref": "Table"
-							}
-						}
-					},
-					{
-						"AWSSecretsManagerGetSecretValuePolicy": {
-							"SecretArn": {
-								"Ref": "ExternalRDSSecretArn"
-							}
-						}
-					}
-				],
-				"Events": {
-					"ApiGETresponse": {
-						"Type": "Api",
-						"Properties": {
-							"Path": "/response",
-							"Method": "GET",
-							"RestApiId": {
-								"Ref": "Api"
-							}
-						}
-					}
-				}
-			}
-		},
-		"FunctionLogGroup": {
-			"Type": "AWS::Logs::LogGroup",
-			"DeletionPolicy": "Retain",
-			"Properties": {
-				"LogGroupName": {
-					"Fn::Sub": "/aws/lambda/${Function}"
-				}
-			}
-		},
-		"Function2": {
-			"Type": "AWS::Lambda::Function",
-			"Properties": {
-				"Code": {},
-				"Role": "<String>"
-			}
-		},
-		"Table": {
-			"Type": "AWS::DynamoDB::Table",
-			"Properties": {
-				"AttributeDefinitions": [
-					{
-						"AttributeName": "id",
-						"AttributeType": "S"
-					}
-				],
-				"BillingMode": "PAY_PER_REQUEST",
-				"KeySchema": [
-					{
-						"AttributeName": "id",
-						"KeyType": "HASH"
-					}
-				],
-				"StreamSpecification": {
-					"StreamViewType": "NEW_AND_OLD_IMAGES"
-				}
-			}
-		}
-	},
-	"Metadata": {
-		"AWS::Composer::ExternalResources": {
-			"ExternalRDS": {
-				"Type": "externalRDS",
-				"Settings": {
-					"Port": {
-						"Ref": "ExternalRDSPort"
-					},
-					"Hostname": {
-						"Ref": "ExternalRDSHostname"
-					},
-					"SecretArn": {
-						"Ref": "ExternalRDSSecretArn"
-					}
-				}
-			}
-		}
-	},
-	"Parameters": {
-		"ExternalRDSPort": {
-			"Type": "Number"
-		},
-		"ExternalRDSHostname": {
-			"Type": "String"
-		},
-		"ExternalRDSSecretArn": {
-			"Type": "String"
-		}
-	},
-	"dependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-lottie": "^1.2.4",
-		"react-scripts": "^5.0.1"
-	}
+  "name": "chat-sdk-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "webpack --mode production",
+    "build-css": "postcss src/styles/tailwind.css -o ./src/dist/tailwind.css",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "css-loader": "^6.9.0",
+    "file-loader": "^6.2.0",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "postcss-preset-env": "^9.3.0",
+    "style-loader": "^3.3.4",
+    "tailwindcss": "^3.4.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Resources": {
+    "Api": {
+      "Type": "AWS::Serverless::Api",
+      "Properties": {
+        "Name": {
+          "Fn::Sub": [
+            "${ResourceName} From Stack ${AWS::StackName}",
+            {
+              "ResourceName": "Api"
+            }
+          ]
+        },
+        "StageName": "Prod",
+        "DefinitionBody": {
+          "openapi": "3.0",
+          "info": {},
+          "paths": {
+            "/response": {
+              "get": {
+                "x-amazon-apigateway-integration": {
+                  "httpMethod": "POST",
+                  "type": "aws_proxy",
+                  "uri": {
+                    "Fn::Sub": "arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Function.Arn}/invocations"
+                  }
+                },
+                "responses": {}
+              }
+            }
+          }
+        },
+        "EndpointConfiguration": "REGIONAL",
+        "TracingEnabled": true,
+        "Auth": {
+          "DefaultAuthorizer": "AWS_IAM"
+        },
+        "Cors": {
+          "MaxAge": 5
+        }
+      }
+    },
+    "Function": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Description": {
+          "Fn::Sub": [
+            "Stack ${AWS::StackName} Function ${ResourceName}",
+            {
+              "ResourceName": "Function"
+            }
+          ]
+        },
+        "CodeUri": "src/Function",
+        "Handler": "index.handler",
+        "Runtime": "nodejs20.x",
+        "MemorySize": 3008,
+        "Timeout": 30,
+        "Tracing": "Active",
+        "Environment": {
+          "Variables": {
+            "EXTERNALRDS_PORT": "!Ref ExternalRDSPort",
+            "EXTERNALRDS_HOSTNAME": "!Ref ExternalRDSHostname",
+            "EXTERNALRDS_SECRETARN": "!Ref ExternalRDSSecretArn",
+            "TABLE_TABLE_NAME": {
+              "Ref": "Table"
+            },
+            "TABLE_TABLE_ARN": {
+              "Fn::GetAtt": [
+                "Table",
+                "Arn"
+              ]
+            },
+            "EXTERNALRDS_PORT_2": {
+              "Ref": "ExternalRDSPort"
+            },
+            "EXTERNALRDS_HOSTNAME_2": {
+              "Ref": "ExternalRDSHostname"
+            },
+            "EXTERNALRDS_SECRETARN_2": {
+              "Ref": "ExternalRDSSecretArn"
+            }
+          }
+        },
+        "Policies": [
+          {
+            "AWSSecretsManagerGetSecretValuePolicy": {
+              "SecretArn": {
+                "Ref": "ExternalRDSSecretArn"
+              }
+            }
+          },
+          {
+            "DynamoDBCrudPolicy": {
+              "TableName": {
+                "Ref": "Table"
+              }
+            }
+          },
+          {
+            "AWSSecretsManagerGetSecretValuePolicy": {
+              "SecretArn": {
+                "Ref": "ExternalRDSSecretArn"
+              }
+            }
+          }
+        ],
+        "Events": {
+          "ApiGETresponse": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/response",
+              "Method": "GET",
+              "RestApiId": {
+                "Ref": "Api"
+              }
+            }
+          }
+        }
+      }
+    },
+    "FunctionLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Sub": "/aws/lambda/${Function}"
+        }
+      }
+    },
+    "Function2": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {},
+        "Role": "<String>"
+      }
+    },
+    "Table": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "StreamSpecification": {
+          "StreamViewType": "NEW_AND_OLD_IMAGES"
+        }
+      }
+    }
+  },
+  "Metadata": {
+    "AWS::Composer::ExternalResources": {
+      "ExternalRDS": {
+        "Type": "externalRDS",
+        "Settings": {
+          "Port": {
+            "Ref": "ExternalRDSPort"
+          },
+          "Hostname": {
+            "Ref": "ExternalRDSHostname"
+          },
+          "SecretArn": {
+            "Ref": "ExternalRDSSecretArn"
+          }
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "ExternalRDSPort": {
+      "Type": "Number"
+    },
+    "ExternalRDSHostname": {
+      "Type": "String"
+    },
+    "ExternalRDSSecretArn": {
+      "Type": "String"
+    }
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-lottie": "^1.2.4",
+    "react-scripts": "^5.0.1"
+  }
 }

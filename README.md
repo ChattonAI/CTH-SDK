@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# CTH-SDK
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CTH-SDK is a comprehensive solution for integrating advanced chatbot functionalities into your web applications. This SDK is designed to be flexible and customisable, allowing for a wide range of use cases.
 
-## Available Scripts
+## Important Notice
 
-In the project directory, you can run:
+While modifications and customisations to the SDK are permitted, it is required that all implementations of the CTH-SDK visibly display "POWERED BY CHATTONAI" with a hyperlink to [ChattonAI's website](#). This attribution must be preserved in any version of the SDK that is used publicly.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Via NPM
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+You can install the CTH-SDK via NPM. This is the recommended method for ease of installation and updates.
 
-### `npm test`
+```bash
+npm install cth-sdk
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Manual Installation
 
-### `npm run build`
+Alternatively, you can clone the repository and build the SDK manually:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/ChattonAI/CTH-SDK.git
+cd CTH-SDK
+npm install
+npm run build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This will generate a `bundle.js` file in your directory, which you can then include in your web projects.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+After installation, you can initialise and use the SDK in your JavaScript code as follows:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```javascript
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.ChattonAI_Chatbot_SDK) {
+    window.ChattonAI_Chatbot_SDK.init({
+      // Your initialization parameters
+      businessId: "business001",
+      predefinedMessages: ["Hello!", "How much is shipping?", "Help me pick a poster", "Album posters"]
+    });
+  }
+});
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For detailed usage instructions and customisation options, please refer to our [documentation](documentation.chattonai.com).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Customising and Pushing Your Version to CDN
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+CTH-SDK allows for extensive customisation to fit your specific requirements. To learn more about how you can customise and push your own version of the SDK to our CDN, please refer to our [detailed documentation](documentation.chattonai.com/cdn).
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Contributions to CTH-SDK are welcome. Please ensure that your code adheres to our contribution guidelines and code of conduct.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+CTH-SDK is released under [Apache license 2.0], which allows for modification and redistribution with the requirement of attribution.

@@ -9,7 +9,10 @@ const MessageList = ({ messages, isTyping, messageListRef }) => {
 
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      const { scrollHeight, clientHeight } = containerRef.current;
+      if (scrollHeight > clientHeight) {
+        containerRef.current.scrollTop = scrollHeight - clientHeight;
+      }
     }
   }, [messages]);
 

@@ -47,7 +47,7 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
         const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/plain;charset=UTF-8',
           },
           body: JSON.stringify(payload),
         });

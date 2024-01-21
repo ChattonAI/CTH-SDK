@@ -1,7 +1,7 @@
 {
-  "name": "chat-sdk-test",
+  "name": "cth-sdk",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "react-scripts start",
     "build": "webpack --mode production",

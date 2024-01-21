@@ -1,7 +1,10 @@
 {
-  "name": "cth-sdk",
+  "name": "@chattonai/cth-sdk",
   "version": "0.1.1",
   "private": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
   "type": "git",
   "url": "https://github.com/ChattonAI/CTH-SDK.git"

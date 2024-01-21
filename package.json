@@ -2,6 +2,10 @@
   "name": "cth-sdk",
   "version": "0.1.0",
   "private": false,
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/ChattonAI/CTH-SDK.git"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "webpack --mode production",

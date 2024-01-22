@@ -1,6 +1,6 @@
 {
   "name": "@chattonai/cth-sdk",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -236,9 +236,9 @@
     }
   },
   "dependencies": {
+    "lottie-light-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-lottie": "^1.2.4",
     "react-scripts": "^5.0.1"
   },
   "engines": {

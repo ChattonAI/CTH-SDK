@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-light-react';
 
 const SendingAnimation = ({ animationData, isPlaying }) => {
-    const lottieRef = useRef(null);
+  const lottieRef = useRef(null);
   return (
     <div className="sending-animation-container">
       <Lottie

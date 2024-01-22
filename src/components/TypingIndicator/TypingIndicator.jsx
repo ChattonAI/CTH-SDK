@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-light-react';
 
 const TypingIndicator = ({ isTyping, animationData }) => {
   // Create a ref for the Lottie instance

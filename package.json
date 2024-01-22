@@ -1,13 +1,13 @@
 {
   "name": "@chattonai/cth-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
-  "type": "git",
-  "url": "https://github.com/ChattonAI/CTH-SDK.git"
+    "type": "git",
+    "url": "https://github.com/ChattonAI/CTH-SDK.git"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -240,5 +240,9 @@
     "react-dom": "^18.2.0",
     "react-lottie": "^1.2.4",
     "react-scripts": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
   }
 }

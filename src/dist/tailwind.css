@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.0 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -914,6 +914,15 @@ select {
     height: 100px;
     margin-left: 10px; /* Or adjust to align with your chatbot messages */
   }
+@keyframes pulse {
+
+  50% {
+    opacity: .5;
+  }
+}
+.typing-indicator {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 .chat-icon {
   position: fixed;
   bottom: 2.5rem;

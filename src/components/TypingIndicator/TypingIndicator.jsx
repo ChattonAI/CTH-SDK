@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import Lottie from 'lottie-light-react';
+import Lottie from "lottie-light-react";
 
 const TypingIndicator = ({ isTyping, animationData }) => {
   // Create a ref for the Lottie instance
-  const lottieRef = useRef(null);
+  const lottieRef = useRef();
 
   const handleClick = (e) => {
     e.preventDefault(); // Prevent default click behavior
@@ -20,11 +20,8 @@ const TypingIndicator = ({ isTyping, animationData }) => {
   return (
     <div className="typing-indicator" onClick={handleClick}>
       <Lottie
-        options={{
-          loop: true,
-          autoplay: false, // Start animation based on isTyping
-          animationData: animationData,
-        }}
+        lottieRef={lottieRef}
+        animationData={animationData}
         height={50}
         width={50}
         isStopped={!isTyping}

@@ -154,6 +154,10 @@
     margin-left: 10px; /* Or adjust to align with your chatbot messages */
   }
 
+  .typing-indicator {
+    @apply animate-pulse;
+  }
+
   .chat-icon {
     @apply fixed bottom-10 right-10 w-20 h-20 rounded-full cursor-pointer;
     background-size: cover;

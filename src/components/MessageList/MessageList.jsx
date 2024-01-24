@@ -8,9 +8,12 @@ const MessageList = ({ messages, isTyping, messageListRef }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (containerRef.current) {
+    const shouldAutoScroll = messages.length > 4;
+    if (containerRef.current && shouldAutoScroll) {
       const { scrollHeight, clientHeight } = containerRef.current;
-      if (scrollHeight > clientHeight) {
+      const hasOverflow = scrollHeight > clientHeight;
+
+      if (hasOverflow) {
         containerRef.current.scrollTop = scrollHeight - clientHeight;
       }
     }

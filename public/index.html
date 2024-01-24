@@ -10,32 +10,40 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>React App</title>
-  <style>
-    /* Additional styles or overrides */
-    body {
-      /* Remove default margin */
-      /* Full viewport height */
-      /* Use flexbox for centering */
-      /* Center vertically */
-      /* Center horizontally */
-      /* Needed for absolute positioning */
-      background-color: #000000;
-      /* Dark background color */
-      overflow: hidden;
-      /* Hide overflow */
-    }
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-    #root {
-      position: relative;
-      /* Establish a stacking context */
-      z-index: 1;
-      /* Ensure the chatbox appears above the background circle */
-    }
-  </style>
-</head>
+        body {
+          margin: 0;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          background-color: #000000;
+          color: #FFFFFF;
+          overflow: hidden;
+          font-family: 'Inter', sans-serif;
+        }
+
+        .brand-text {
+          font-size: 5rem;
+          /* Adjust the font size as needed */
+          position: absolute;
+          z-index: 0;
+          font-weight: bold; /* Added this line to make the text bold */
+        }
+
+        #root {
+          position: relative;
+          z-index: 1;
+        }
+      </style>
+      </head>
 
 <body>
-  <div class="background-circle"></div> <!-- The circle to display behind the chatbox -->
+  <div class="background-circle"></div>
+  <div class="brand-text">ChattonAI</div>
   <div id="root"></div>
   <script src="bundle.js"></script>
   <script>

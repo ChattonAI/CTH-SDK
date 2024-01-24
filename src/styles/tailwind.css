@@ -47,6 +47,16 @@
     @apply flex flex-col gap-2;
   }
 
+  /* Hide scrollbar by default */
+  .message-list-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Show scrollbar when there's overflow */
+  .message-list-container:has(overflow)::-webkit-scrollbar {
+    display: block;
+  }
+
   .message-item {
     @apply bg-zinc-800 bg-opacity-80 rounded-2xl p-2 m-2;
   }
@@ -149,7 +159,7 @@
   /* Typing indicator styles */
   .typing-indicator-container {
     align-self: flex-start; /* Aligns to the left */
-    max-width: 50px; /* Adjust as needed */
+    width: 60px; /* Adjust as needed */
     height: 100px;
     margin-left: 10px; /* Or adjust to align with your chatbot messages */
   }
@@ -232,7 +242,7 @@
 
 /* Scrollbar */
 .scrollbar::-webkit-scrollbar {
-  width: 11px;
+  width: 5px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

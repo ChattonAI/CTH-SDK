@@ -16,11 +16,13 @@
 
   /* Header styles */
   .chat-header {
-    @apply w-full h-12 flex justify-between items-center px-4 bg-zinc-800 bg-opacity-75 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
+    @apply w-full min-h-[48px] flex justify-between items-center px-4 bg-zinc-800 bg-opacity-75 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
+    flex-shrink: 0; /* Prevent the header from shrinking */
+    flex-basis: 48px;
   }
 
   .header-content {
-    @apply flex flex-col items-center gap-0; /* Removed the pl-5 to match the centered content */
+    @apply flex flex-col items-center gap-0;
   }
 
   .assistant-icon {
@@ -30,7 +32,7 @@
   .powered-by {
     font-size: 0.75rem;
   }
-  
+
   .close-icon {
     transition: transform 0.4s ease-in-out;
   }
@@ -40,6 +42,7 @@
     opacity: 0.5;
     transition: transform 0.3s ease-in-out;
   }
+
 
   /* Message list styles */
   .message-list-container {

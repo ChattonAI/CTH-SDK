@@ -2,6 +2,7 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx}", // Adjust the glob patterns to match your project structure
   ],
+  mode: 'jit',
   theme: {
     extend: {
       colors: {

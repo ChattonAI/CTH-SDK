@@ -1,14 +1,20 @@
 import React from 'react';
 import LinkifiedText from '../../utils/linkify.jsx';
+import config from '../../config/cth-sdk-config';
 
 const MessageItem = ({ message, isUser }) => {
-  // Styles for user and assistant message bubbles
-  const messageBubbleBaseStyles = "text-neutral-400 text-sm p-3 rounded-2xl break-words";
-  const userMessageStyles = `bg-zinc-800 ${messageBubbleBaseStyles} max-w-[calc(100%-3rem)] self-end`; // 3rem is for total horizontal padding; adjust as needed
-  const assistantMessageStyles = `border border-zinc-800 ${messageBubbleBaseStyles} max-w-[calc(100%-3rem)] self-start`; // Same here
-  const slideInAnimation = "slide-in"; // Animation class
+  // Destructuring for easier access to config properties
+  const { textStyle } = config.message;
+  const { backgroundColor } = config.userMessage;
+  const { border, borderColor } = config.assistantMessage;
 
-  // Combining styles based on whether the message is from the user or assistant
+  // Styles for user and assistant message bubbles
+  const messageBubbleBaseStyles = `${textStyle} p-3 rounded-2xl break-words`;
+  const userMessageStyles = `${backgroundColor} ${messageBubbleBaseStyles} max-w-[calc(100%-3rem)] self-end`; // Adjust as needed
+  const assistantMessageStyles = `${border} ${borderColor} ${messageBubbleBaseStyles} max-w-[calc(100%-3rem)] self-start`; // Adjust as needed
+  const slideInAnimation = "slide-in"; // Assuming you have this animation defined elsewhere
+
+  // Combining styles based on whether the message is from the user or the assistant
   const messageStyles = `${isUser ? userMessageStyles : assistantMessageStyles} ${slideInAnimation}`;
 
   return (

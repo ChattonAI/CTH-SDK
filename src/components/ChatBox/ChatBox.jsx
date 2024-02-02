@@ -7,7 +7,7 @@ import ChatIcon from '../ChatIcon/ChatIcon.jsx';
 import TypingIndicator from '../TypingIndicator/TypingIndicator.jsx';
 import SendingAnimation from '../SendingAnimation/SendingAnimation.jsx';
 import messageListContainer from '../MessageList/MessageList.jsx';
-
+import config from '../../config/cth-sdk-config.js';
 
 // Main ChatBox Component
 const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, businessId }) => {
@@ -79,17 +79,18 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
     }, 700); // This should match the duration of your CSS animation
   };
 
-  /* ChatBox animation */
-  const chatBoxClasses = `chat-box ${isClosing ? 'chat-box-slide-out' : (isVisible ? 'chat-box-slide-and-bounce' : '')}`;
+  const { width, height, backgroundColor, backgroundOpacity, borderRadius, position } = config.chatBox;
+  
+  // Combine custom styles with conditional animation classes
+  const chatBoxClasses = `chat-box ${width} ${height} ${backgroundColor} ${backgroundOpacity} ${borderRadius} ${position} bg-opacity-75 ${isClosing ? 'chat-box-slide-out' : isVisible ? 'chat-box-slide-and-bounce' : ''}`;
 
-// In your JSX, use this function to dynamically set the class
-return (
+  return (
     <div className={chatBoxClasses}>
-      <ChatHeader onClose={handleClose} />
+      <ChatHeader onClose={onClose} />
       <div className="message-list-container flex-grow" style={{ paddingLeft: '0.800rem', paddingRight: '0.400rem' }} ref={messageListContainer}>
 
-      {/* Pass messages prop directly to MessageList */}
-      <MessageList messages={messages} isTyping={isChatbotTyping} />
+        {/* Pass messages prop directly to MessageList */}
+        <MessageList messages={messages} isTyping={isChatbotTyping} />
 
       </div>
       {/* Conditionally render predefined options */}
@@ -102,8 +103,7 @@ return (
       )}
       <InputBox onSendMessage={sendMessage} isSending={isSending} />
     </div>
-);
+  );
 };
-
 
 export default ChatBox;

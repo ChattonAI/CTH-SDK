@@ -2,10 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import SendIcon from '../../Images/vector.svg'
 import sendingAnimationData from '../../Animations/Sending-Animation.json';
 import SendingAnimation from '../SendingAnimation/SendingAnimation';
+import config from '../../config/cth-sdk-config';
 
 const InputBox = ({ onSendMessage, isSending }) => {
   const [message, setMessage] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const { height, backgroundColor, backgroundOpacity, textColor } = config.chatInput;
 
   const resizeTextarea = (e) => {
     const minHeight = 58; // Set the minimum height
@@ -38,7 +41,7 @@ const InputBox = ({ onSendMessage, isSending }) => {
   return (
     <div className="flex items-center justify-between gap-2 p-3">
       <textarea
-        className="chat-input no-scrollbar scrollbar-thumb-rounded scrollbar-track-transparent"
+        className={`chat-input ${height} ${backgroundColor} ${backgroundOpacity} ${textColor} no-scrollbar scrollbar-thumb-rounded scrollbar-track-transparent`}
         rows="1"
         value={message}
         onChange={handleInputChange}

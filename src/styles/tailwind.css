@@ -7,7 +7,7 @@
 
   /* Chat box styles */
   .chat-box {
-    @apply flex flex-col w-[389px] h-[600px] bg-neutral-900 rounded-2xl bg-opacity-75 backdrop-blur-3xl pb-1.5 fixed right-[60px] bottom-[60px]; 
+    @apply flex flex-col bg-opacity-75 backdrop-blur-3xl pb-1.5 fixed right-[60px] bottom-[60px]; 
   }
 
   .chat-box-container {
@@ -16,7 +16,7 @@
 
   /* Header styles */
   .chat-header {
-    @apply w-full min-h-[48px] flex justify-between items-center px-4 bg-zinc-800 bg-opacity-75 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
+    @apply w-full flex bg-opacity-75 justify-between items-center px-4 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
     flex-shrink: 0; /* Prevent the header from shrinking */
     flex-basis: 48px;
   }
@@ -60,34 +60,11 @@
     display: block;
   }
 
-  .message-item {
-    @apply bg-zinc-800 bg-opacity-80 rounded-2xl p-2 m-2;
-  }
-
   /* Message styles */
-  .message {
-    @apply text-custom-light-gray text-sm backdrop-blur-[50px] bg-custom-gray bg-opacity-80 justify-center items-stretch px-4 py-3 rounded-custom border-custom border-solid border-custom-gray border-opacity-80 break-words;
-  }
-
-  .user-message {
-    @apply bg-zinc-800 text-neutral-400 text-sm p-3 rounded-2xl self-end break-words;
-  }
-
-  .assistant-message {
-    @apply border-1.5 border-zinc-800 text-neutral-400 text-sm p-3 rounded-2xl self-start break-words;
-  }
-
-  .message-item-user {
-    @apply bg-neutral-400;
-  }
-
-  .message-item-assistant {
-    @apply bg-zinc-800;
-  }
-
+  
   /* Input box */
   .chat-input {
-    @apply h-[58px] text-neutral-400 bg-zinc-800 bg-opacity-80 rounded-2xl;
+    @apply rounded-2xl;
     @apply border-none resize-none; /* Removes border and resize handle */
     @apply p-3; /* Padding inside the input box */
     @apply w-full; /* Full width */
@@ -121,7 +98,7 @@
   }
   
   .predefined-option {
-    @apply text-white bg-zinc-800 bg-opacity-80 hover:bg-opacity-100 focus:bg-opacity-100 hover:backdrop-blur-sm focus:backdrop-blur-sm transition-all duration-300 ease-in-out text-sm font-medium py-2 px-6 rounded-full cursor-pointer m-2;
+    @apply bg-opacity-80 hover:bg-opacity-100 focus:bg-opacity-100 hover:backdrop-blur-sm focus:backdrop-blur-sm transition-all duration-300 ease-in-out text-sm font-medium py-2 px-6 rounded-full cursor-pointer m-2;
   }
 
   /* Predefined options animation*/

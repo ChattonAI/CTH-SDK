@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>React App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-color: #000000;
+            color: #FFFFFF;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .brand-text {
+            font-size: 5rem;
+            /* Adjust the font size as needed */
+            position: absolute;
+            z-index: 0;
+            font-weight: bold;
+            /* Added this line to make the text bold */
+        }
+
+        #root {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-circle"></div>
+    <div class="brand-text">ChattonAI</div>
+    <div id="root"></div>
+    <script src="bundle.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.ChattonAI_Chatbot_SDK.init({
+                businessId: "business001",
+                predefinedMessages: ["Hello!", "Help with tracking", "Help me pick a poster", "How much"]
+            });
+        });
+    </script>
+</body>
+
+</html>

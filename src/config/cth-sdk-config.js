@@ -2,34 +2,34 @@ const config = {
     chatBox: {
         width: "w-[389px]",
         height: "h-[600px]",
-        backgroundColor: "bg-neutral-900",
+        backgroundColor: "bg-neutral-200",
         borderRadius: "rounded-2xl"
     },
     chatHeader: {
-        backgroundColor: "bg-zinc-800",
+        backgroundColor: "bg-stone-300",
         height: "min-h-[48px]",
-        assistantTextColor: "text-white",
-        PBCTextColor: "text-neutral-400"
+        assistantTextColor: "text-black",
+        PBCTextColor: "text-zinc-800"
     },
     message: {
-        textStyle: "text-neutral-400 text-sm",
+        textStyle: "text-zinc-800 text-sm",
     },
     userMessage: {
-        backgroundColor: "bg-zinc-800"
+        backgroundColor: "bg-stone-300"
     },
     assistantMessage: {
         border: "border",
-        borderColor: "border-zinc-800"
+        borderColor: "border-stone-300"
     },
     chatInput: {
         height: "h-[58px]",
-        backgroundColor: "bg-zinc-800",
-        textColor: "text-neutral-400",
+        backgroundColor: "bg-stone-300",
+        textColor: "text-zinc-800",
         backgroundOpacity: "bg-opacity-80"
     },
     predefinedOption: {
-        textColor: "text-white",
-        backgroundColor: "bg-zinc-800"
+        textColor: "text-black",
+        backgroundColor: "bg-stone-300"
     }
 };
 

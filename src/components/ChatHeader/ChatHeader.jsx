@@ -1,6 +1,6 @@
 import React from 'react';
-import CloseIcon from '../../Images/exit.svg';
-import HeaderIcon from '../../Images/SvgjsG1174.png';
+import CloseIcon from '../../Images/black-exit.svg';
+import HeaderIcon from '../../Images/SvgjsG1175.png';
 import config from '../../config/cth-sdk-config';
 
 const ChatHeader = ({ onClose }) => {

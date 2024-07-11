@@ -31,6 +31,10 @@ This will generate a `bundle.js` file in your directory, which you can then incl
 
 ## Usage
 
+To host locally run:
+
+```npm start```
+
 After installation, you can initialise and use the SDK in your JavaScript code as follows:
 
 ```javascript

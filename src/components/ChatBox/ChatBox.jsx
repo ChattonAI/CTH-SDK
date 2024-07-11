@@ -10,7 +10,7 @@ import messageListContainer from '../MessageList/MessageList.jsx';
 import config from '../../config/cth-sdk-config.js';
 
 // Main ChatBox Component
-const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, businessId }) => {
+const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, apiKey }) => {
   const [isSending, setIsSending] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [predefinedOptions, setPredefinedOptions] = useState(predefinedMessages); // renamed state variable
@@ -39,7 +39,7 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
       const apiEndpoint = 'https://ipcv9qzgyh.execute-api.us-east-1.amazonaws.com/Test';
       const payload = {
         message: content,
-        BusinessID: businessId,
+        apiKey: apiKey,
         session_id: currentSessionId,
       };
 

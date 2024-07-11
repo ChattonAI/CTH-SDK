@@ -151,13 +151,13 @@
   .chat-icon {
     @apply fixed bottom-10 right-10 w-20 h-20 rounded-full cursor-pointer;
     background-size: cover;
-    transition: background-image 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    background-image: url("../Images/Frame 17.png"); /* Default image */
+    transition: background-image 0.3s ease-in-out, 0.3s ease-in-out;
+    background-image: url("../Images/chaticon.svg"); /* Default image */
   }
 
   .chat-icon:hover {
-    background-image: url("../Images/white logo with gradient.png"); /* Hover image */
-    transition: 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    background-image: url("../Images/chaticon_hover.svg"); /* Hover image */
+    transition: 0.3s ease-in-out, 0.3s ease-in-out;
   }
 
 

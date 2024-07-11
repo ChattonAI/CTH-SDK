@@ -1,6 +1,8 @@
 /*
 ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
-*//*
+*/
+
+/*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
@@ -8,10 +10,14 @@
 *,
 ::before,
 ::after {
-  box-sizing: border-box; /* 1 */
-  border-width: 0; /* 2 */
-  border-style: solid; /* 2 */
-  border-color: #e5e7eb; /* 2 */
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
 }
 
 ::before,
@@ -31,13 +37,21 @@
 
 html,
 :host {
-  line-height: 1.5; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */ /* 3 */
-  tab-size: 4; /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
-  font-feature-settings: normal; /* 5 */
-  font-variation-settings: normal; /* 6 */
-  -webkit-tap-highlight-color: transparent; /* 7 */
+  line-height: 1.5;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  /* 3 */
+  tab-size: 4;
+  /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
 }
 
 /*
@@ -46,8 +60,10 @@ html,
 */
 
 body {
-  margin: 0; /* 1 */
-  line-height: inherit; /* 2 */
+  margin: 0;
+  /* 1 */
+  line-height: inherit;
+  /* 2 */
 }
 
 /*
@@ -57,9 +73,12 @@ body {
 */
 
 hr {
-  height: 0; /* 1 */
-  color: inherit; /* 2 */
-  border-top-width: 1px; /* 3 */
+  height: 0;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  border-top-width: 1px;
+  /* 3 */
 }
 
 /*
@@ -67,7 +86,6 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
 abbr:where([title]) {
-  text-decoration: underline;
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
 }
@@ -115,10 +133,14 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
-  font-feature-settings: normal; /* 2 */
-  font-variation-settings: normal; /* 3 */
-  font-size: 1em; /* 4 */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* 1 */
+  font-feature-settings: normal;
+  /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
 }
 
 /*
@@ -156,9 +178,12 @@ sup {
 */
 
 table {
-  text-indent: 0; /* 1 */
-  border-color: inherit; /* 2 */
-  border-collapse: collapse; /* 3 */
+  text-indent: 0;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  border-collapse: collapse;
+  /* 3 */
 }
 
 /*
@@ -172,15 +197,24 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-feature-settings: inherit; /* 1 */
-  font-variation-settings: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  font-weight: inherit; /* 1 */
-  line-height: inherit; /* 1 */
-  color: inherit; /* 1 */
-  margin: 0; /* 2 */
-  padding: 0; /* 3 */
+  font-family: inherit;
+  /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
+  /* 1 */
+  line-height: inherit;
+  /* 1 */
+  color: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 0;
+  /* 3 */
 }
 
 /*
@@ -201,9 +235,12 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button; /* 1 */
-  background-color: transparent; /* 2 */
-  background-image: none; /* 2 */
+  -webkit-appearance: button;
+  /* 1 */
+  background-color: transparent;
+  /* 2 */
+  background-image: none;
+  /* 2 */
 }
 
 /*
@@ -245,8 +282,10 @@ Correct the cursor style of increment and decrement buttons in Safari.
 */
 
 [type='search'] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
 }
 
 /*
@@ -263,8 +302,10 @@ Remove the inner padding in Chrome and Safari on macOS.
 */
 
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
 }
 
 /*
@@ -315,6 +356,7 @@ menu {
 /*
 Reset default styling for dialogs.
 */
+
 dialog {
   padding: 0;
 }
@@ -334,8 +376,10 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  opacity: 1; /* 1 */
-  color: #9ca3af; /* 2 */
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
 }
 
 /*
@@ -350,6 +394,7 @@ button,
 /*
 Make sure disabled buttons don't get the pointer cursor.
 */
+
 :disabled {
   cursor: default;
 }
@@ -368,8 +413,10 @@ audio,
 iframe,
 embed,
 object {
-  display: block; /* 1 */
-  vertical-align: middle; /* 2 */
+  display: block;
+  /* 1 */
+  vertical-align: middle;
+  /* 2 */
 }
 
 /*
@@ -383,12 +430,14 @@ video {
 }
 
 /* Make elements with the HTML hidden attribute stay hidden by default */
+
 [hidden] {
   display: none;
 }
 
 [type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
-  appearance: none;
+  -webkit-appearance: none;
+          appearance: none;
   background-color: #fff;
   border-color: #6b7280;
   border-width: 1px;
@@ -459,7 +508,8 @@ select {
 }
 
 [type='checkbox'],[type='radio'] {
-  appearance: none;
+  -webkit-appearance: none;
+          appearance: none;
   padding: 0;
   -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
@@ -511,9 +561,9 @@ select {
 }
 
 @media (forced-colors: active)  {
-
   [type='checkbox']:checked {
-    appearance: auto;
+    -webkit-appearance: auto;
+            appearance: auto;
   }
 }
 
@@ -522,9 +572,9 @@ select {
 }
 
 @media (forced-colors: active)  {
-
   [type='radio']:checked {
-    appearance: auto;
+    -webkit-appearance: auto;
+            appearance: auto;
   }
 }
 
@@ -543,9 +593,9 @@ select {
 }
 
 @media (forced-colors: active)  {
-
   [type='checkbox']:indeterminate {
-    appearance: auto;
+    -webkit-appearance: auto;
+            appearance: auto;
   }
 }
 
@@ -668,14 +718,16 @@ select {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+
 .\!container {
   width: 100% !important;
 }
+
 .container {
   width: 100%;
 }
-@media (min-width: 640px) {
 
+@media (min-width: 640px) {
   .\!container {
     max-width: 640px !important;
   }
@@ -684,8 +736,8 @@ select {
     max-width: 640px;
   }
 }
-@media (min-width: 768px) {
 
+@media (min-width: 768px) {
   .\!container {
     max-width: 768px !important;
   }
@@ -694,8 +746,8 @@ select {
     max-width: 768px;
   }
 }
-@media (min-width: 1024px) {
 
+@media (min-width: 1024px) {
   .\!container {
     max-width: 1024px !important;
   }
@@ -704,8 +756,8 @@ select {
     max-width: 1024px;
   }
 }
-@media (min-width: 1280px) {
 
+@media (min-width: 1280px) {
   .\!container {
     max-width: 1280px !important;
   }
@@ -714,8 +766,8 @@ select {
     max-width: 1280px;
   }
 }
-@media (min-width: 1536px) {
 
+@media (min-width: 1536px) {
   .\!container {
     max-width: 1536px !important;
   }
@@ -724,7 +776,9 @@ select {
     max-width: 1536px;
   }
 }
+
 /* Chat box styles */
+
 .chat-box {
   position: fixed;
   right: 60px;
@@ -737,7 +791,9 @@ select {
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
+
 /* Header styles */
+
 .chat-header {
   display: flex;
   width: 100%;
@@ -751,70 +807,105 @@ select {
   --tw-backdrop-blur: blur(64px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-    flex-shrink: 0; /* Prevent the header from shrinking */
-    flex-basis: 48px;
+  flex-shrink: 0;
+  /* Prevent the header from shrinking */
+  flex-basis: 48px;
 }
+
 .header-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0px;
 }
+
 .powered-by {
-    font-size: 0.75rem;
-  }
+  font-size: 0.75rem;
+}
+
 .close-icon {
-    transition: transform 0.4s ease-in-out;
-  }
+  transition: transform 0.4s ease-in-out;
+}
+
 .close-icon:hover {
-    transform: rotate(360deg);
-    opacity: 0.5;
-    transition: transform 0.3s ease-in-out;
-  }
+  transform: rotate(360deg);
+  opacity: 0.5;
+  transition: transform 0.3s ease-in-out;
+}
+
 /* Message list styles */
+
 .message-list-container {
   max-height: 700px;
-  overflow: auto; /* This allows for scrolling */ display: flex; flex-direction: column; gap: 0.5rem;
+  overflow: auto;
+  /* This allows for scrolling */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
+
 /* Hide scrollbar by default */
+
 .message-list-container::-webkit-scrollbar {
-    display: none;
-  }
+  display: none;
+}
+
 /* Show scrollbar when there's overflow */
+
 .message-list-container:has(overflow)::-webkit-scrollbar {
-    display: block;
-  }
+  display: block;
+}
+
 /* Message styles */
+
 /* Input box */
+
 .chat-input {
   border-radius: 1rem;
   resize: none;
-  border-style: none; /* Removes border and resize handle */ padding: 0.75rem; /* Padding inside the input box */ width: 100%; /* Full width */
+  border-style: none;
+  /* Removes border and resize handle */
+  padding: 0.75rem;
+  /* Padding inside the input box */
+  width: 100%;
+  /* Full width */
 }
+
 /* Send button */
+
 .send-button {
   display: flex;
   height: 58px;
   width: 58px;
   flex-shrink: 0;
   align-items: center;
-  justify-content: center; /* Adjust width as necessary */
-    transition: background-color 0.3s ease-in-out; /* Add transition for smooth effect */
+  justify-content: center;
+  /* Adjust width as necessary */
+  transition: background-color 0.3s ease-in-out;
+  /* Add transition for smooth effect */
 }
+
 .send-button:hover {
-    transform: scale(0.95); /* Shrink the button when hovered */
-  }
+  transform: scale(0.95);
+  /* Shrink the button when hovered */
+}
+
 .transition {
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
 .transition.opacity-0 {
-    opacity: 0;
-  }
+  opacity: 0;
+}
+
 .send-icon {
   height: 100%;
-  width: 100%; /* Ensures the icon fills the button */
+  width: 100%;
+  /* Ensures the icon fills the button */
 }
+
 /* Predefined options */
+
 .predefined-options-container {
   display: flex;
   flex-wrap: wrap;
@@ -823,6 +914,7 @@ select {
   border-radius: 1rem;
   --tw-bg-opacity: 0.9;
 }
+
 .predefined-option {
   margin: 0.5rem;
   cursor: pointer;
@@ -839,63 +931,83 @@ select {
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .predefined-option:hover {
   --tw-bg-opacity: 1;
   --tw-backdrop-blur: blur(4px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
+
 .predefined-option:focus {
   --tw-bg-opacity: 1;
   --tw-backdrop-blur: blur(4px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
-/* Predefined options animation*/
-/* Fade out animation */
-@keyframes fadeOut {
-    from {
-      opacity: 1;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-  }
-.fade-out {
-    animation: fadeOut 0.5s forwards; /* forwards ensures the end state (opacity: 0) is maintained after animation completes */
-  }
-/* Slide-in animation */
-@keyframes slideIn {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-.slide-in {
-    animation: slideIn 0.3s ease-out; /* Adjust duration and easing as desired */
-  }
-/* Typing indicator styles */
-.typing-indicator-container {
-    align-self: flex-start; /* Aligns to the left */
-    width: 60px; /* Adjust as needed */
-    height: 100px;
-    margin-left: 10px; /* Or adjust to align with your chatbot messages */
-  }
-@keyframes pulse {
 
+/* Predefined options animation*/
+
+/* Fade out animation */
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+  /* forwards ensures the end state (opacity: 0) is maintained after animation completes */
+}
+
+/* Slide-in animation */
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+  /* Adjust duration and easing as desired */
+}
+
+/* Typing indicator styles */
+
+.typing-indicator-container {
+  align-self: flex-start;
+  /* Aligns to the left */
+  width: 60px;
+  /* Adjust as needed */
+  height: 100px;
+  margin-left: 10px;
+  /* Or adjust to align with your chatbot messages */
+}
+
+@keyframes pulse {
   50% {
     opacity: .5;
   }
 }
+
 .typing-indicator {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
 .chat-icon {
   position: fixed;
   bottom: 2.5rem;
@@ -904,179 +1016,242 @@ select {
   width: 5rem;
   cursor: pointer;
   border-radius: 9999px;
-    background-size: cover;
-    transition: background-image 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    background-image: url("../Images/Frame 17.png"); /* Default image */
+  background-size: cover;
+  transition: background-image 0.3s ease-in-out, 0.3s ease-in-out;
+  background-image: url("../Images/chaticon.svg");
+  /* Default image */
 }
+
 .chat-icon:hover {
-    background-image: url("../Images/white logo with gradient.png"); /* Hover image */
-    transition: 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  }
-/*chatIcon animation*/
-@keyframes slideAndBounce {
-    0% {
-      transform: translateY(100vh); /* Start off-screen */
-      opacity: 0;
-    }
-    70% {
-      transform: translateY(0); /* End at the final position */
-      opacity: 1;
-    }
-    80% {
-      transform: translateY(-10px); /* Bounce up a little */
-      opacity: 1;
-    }
-    90% {
-      transform: translateY(0); /* Settle back into final position */
-      opacity: 1;
-    }
-  }
-.chat-box-slide-and-bounce {
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1); /* You can adjust the timing as you like */
-    animation: slideAndBounce 0.7s ease-out forwards; /* Use forwards to maintain the final state */
+  background-image: url("../Images/chaticon_hover.svg");
+  /* Hover image */
+  transition: 0.3s ease-in-out, 0.3s ease-in-out;
 }
-@keyframes slideOut {
+
+/*chatIcon animation*/
+
+@keyframes slideAndBounce {
   0% {
-    transform: translateY(0); /* Start at the current position */
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh); /* Slide off-screen */
+    transform: translateY(100vh);
+    /* Start off-screen */
     opacity: 0;
   }
+
+  70% {
+    transform: translateY(0);
+    /* End at the final position */
+    opacity: 1;
   }
+
+  80% {
+    transform: translateY(-10px);
+    /* Bounce up a little */
+    opacity: 1;
+  }
+
+  90% {
+    transform: translateY(0);
+    /* Settle back into final position */
+    opacity: 1;
+  }
+}
+
+.chat-box-slide-and-bounce {
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  /* You can adjust the timing as you like */
+  animation: slideAndBounce 0.7s ease-out forwards;
+  /* Use forwards to maintain the final state */
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+    /* Start at the current position */
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh);
+    /* Slide off-screen */
+    opacity: 0;
+  }
+}
+
 .chat-box-slide-out {
   transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1); /* You can adjust the timing as you like */
-    animation: slideOut 0.7s ease-in forwards; /* Use forwards to maintain the final state */
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  /* You can adjust the timing as you like */
+  animation: slideOut 0.7s ease-in forwards;
+  /* Use forwards to maintain the final state */
 }
+
 /* Custom button and input styles can be added here */
+
 .block {
   display: block;
 }
+
 .flex {
   display: flex;
 }
+
 .hidden {
   display: none;
 }
+
 .h-3 {
   height: 0.75rem;
 }
+
 .h-8 {
   height: 2rem;
 }
+
 .h-\[58px\] {
   height: 58px;
 }
+
 .h-\[600px\] {
   height: 600px;
 }
+
 .min-h-\[48px\] {
   min-height: 48px;
 }
+
 .w-3 {
   width: 0.75rem;
 }
+
 .w-4 {
   width: 1rem;
 }
+
 .w-\[389px\] {
   width: 389px;
 }
+
 .max-w-\[calc\(100\%-3rem\)\] {
   max-width: calc(100% - 3rem);
 }
+
 .flex-grow {
   flex-grow: 1;
 }
+
 .flex-col {
   flex-direction: column;
 }
+
 .items-end {
   align-items: flex-end;
 }
+
 .items-center {
   align-items: center;
 }
+
 .justify-between {
   justify-content: space-between;
 }
+
 .gap-2 {
   gap: 0.5rem;
 }
+
 .self-start {
   align-self: flex-start;
 }
+
 .self-end {
   align-self: flex-end;
 }
+
 .break-words {
   overflow-wrap: break-word;
 }
+
 .rounded-2xl {
   border-radius: 1rem;
 }
+
 .border {
   border-width: 1px;
 }
+
 .border-stone-300 {
   --tw-border-opacity: 1;
   border-color: rgb(214 211 209 / var(--tw-border-opacity));
 }
+
 .bg-neutral-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 229 229 / var(--tw-bg-opacity));
 }
+
 .bg-stone-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(214 211 209 / var(--tw-bg-opacity));
 }
+
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
 }
+
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
 }
+
 .p-1 {
   padding: 0.25rem;
 }
+
 .p-3 {
   padding: 0.75rem;
 }
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+
 .font-extrabold {
   font-weight: 800;
 }
+
 .font-light {
   font-weight: 300;
 }
+
 .uppercase {
   text-transform: uppercase;
 }
+
 .leading-3 {
   line-height: .75rem;
 }
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
+
 .text-zinc-800 {
   --tw-text-opacity: 1;
   color: rgb(39 39 42 / var(--tw-text-opacity));
 }
+
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -1090,6 +1265,7 @@ select {
 /* Custom utilities */
 
 /* Scrollbar */
+
 .scrollbar::-webkit-scrollbar {
   width: 5px;
 }
@@ -1113,22 +1289,25 @@ select {
   background: transparent;
 }
 
-  .no-scrollbar::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar {
   height: 0px;
-  width: 0px; /* Remove scrollbar size */
+  width: 0px;
+  /* Remove scrollbar size */
 }
 
-  .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
   border-radius: 9999px;
   --tw-bg-opacity: 1;
-  background-color: rgb(63 63 70 / var(--tw-bg-opacity)); /* Scrollbar thumb styling */
+  background-color: rgb(63 63 70 / var(--tw-bg-opacity));
+  /* Scrollbar thumb styling */
 }
 
-  .scrollbar-track-transparent::-webkit-scrollbar-track {
-  background-color: transparent; /* Scrollbar track styling */
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Scrollbar track styling */
 }
 
-  .focus\:outline-none:focus {
+.focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }

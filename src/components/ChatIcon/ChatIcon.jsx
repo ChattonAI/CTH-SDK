@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ChatBox from '../ChatBox/ChatBox';
 
-const ChatIcon = ({ predefinedMessages, businessId }) => {
+const ChatIcon = ({ predefinedMessages, apiKey }) => {
     const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
     const [showPredefined, setShowPredefined] = useState(true);
     const [messages, setMessages] = useState([]);
@@ -32,7 +32,7 @@ const ChatIcon = ({ predefinedMessages, businessId }) => {
                     onHidePredefined={hidePredefinedMessages}
                     messages={messages}
                     setMessages={setMessages}
-                    businessId={businessId}
+                    apiKey={apiKey} // your API key passed through props
                 />
             )}
         </>

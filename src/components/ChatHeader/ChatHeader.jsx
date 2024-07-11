@@ -1,6 +1,6 @@
 import React from 'react';
 import CloseIcon from '../../Images/black-exit.svg';
-import HeaderIcon from '../../Images/SvgjsG1175.png';
+import HeaderIcon from '../../Images/ChattonAI_logo_Q2.png';
 import config from '../../config/cth-sdk-config';
 
 const ChatHeader = ({ onClose }) => {
@@ -20,7 +20,7 @@ const ChatHeader = ({ onClose }) => {
 
         {/* Subtitle "powered by CHATTONAI" */}
         <div className={`powered-by ${PBCTextColor} text-xs font-light uppercase leading-3`} style={{ fontSize: '0.5rem' }}>
-          powered <a href="https://neliobarbosa67.wixstudio.io/mysite" style={{ textDecoration: 'none' }}>by CHATTONAI</a>
+          powered <a href="https://chattonai.com" style={{ textDecoration: 'none' }}>by CHATTONAI</a>
         </div>
       </div>
       

@@ -4,7 +4,7 @@ CTH-SDK is a comprehensive solution for integrating advanced chatbot functionali
 
 ## Important Notice
 
-While modifications and customisations to the SDK are permitted, it is required that all implementations of the CTH-SDK visibly display "POWERED BY CHATTONAI" with a hyperlink to [ChattonAI's website](#), within the chat box's UI. This attribution must be preserved in any version of the SDK that is used publicly.
+While modifications and customisations to the SDK are permitted, it is required that all implementations of the CTH-SDK visibly display "POWERED BY CHATTONAI" with a hyperlink to [ChattonAI's website](chattonai.com), within the chat box's UI. This attribution must be preserved in any version of the SDK that is used publicly.
 
 ## Installation
 

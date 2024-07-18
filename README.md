@@ -35,7 +35,7 @@ To host locally run:
 
 ```npm start```
 
-After installation, you can initialise and use the SDK in your JavaScript code as follows:
+After installation, you can initialise and use the SDK in your JavaScript or html code as follows:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {

@@ -26,8 +26,8 @@ const ChatHeader = ({ onClose }) => {
       
       {/* Header Icon */}
       <img
-        className="w-4 h-8" // Adjust size as needed
-        src={HeaderIcon} // Update with the correct path
+        className="w-8 h-8" // Adjust size as needed
+        src={HeaderIcon}
         alt="Header Icon"
       />
     </div>

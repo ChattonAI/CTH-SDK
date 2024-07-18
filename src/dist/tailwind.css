@@ -777,12 +777,40 @@ select {
   }
 }
 
-/* Chat box styles */
+.chat-box-wrapper {
+  position: fixed;
+  inset: 0px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.wrapper-visible {
+  opacity: 1;
+}
+
+.mobile-wrapper {
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+.desktop-wrapper {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.desktop-no-blur {
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+}
 
 .chat-box {
-  position: fixed;
-  right: 60px;
-  bottom: 60px;
   display: flex;
   flex-direction: column;
   --tw-bg-opacity: 0.75;
@@ -790,6 +818,122 @@ select {
   --tw-backdrop-blur: blur(64px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  transition: all 0.3s ease-in-out, transform 0.3s ease-in-out;
+  pointer-events: auto;
+}
+
+.mobile-chat-box {
+  height: 83.333333%;
+  max-height: 600px;
+  width: 91.666667%;
+  max-width: 28rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.desktop-chat-box {
+  height: 600px;
+  width: 389px;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+
+.mobile-chat-box-zoomed {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+@keyframes slideInMobile {
+  0% {
+    transform: translate(-50%, 100%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes slideOutMobile {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+
+  100% {
+    transform: translate(-50%, 100%);
+  }
+}
+
+@keyframes slideInDesktop {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutDesktop {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.chat-box-slide-in {
+  animation: slideInMobile 0.3s forwards;
+}
+
+.chat-box-slide-out {
+  animation: slideOutMobile 0.3s forwards;
+}
+
+.desktop-chat-box.chat-box-slide-in {
+  animation: slideInDesktop 0.3s forwards;
+}
+
+.desktop-chat-box.chat-box-slide-out {
+  animation: slideOutDesktop 0.3s forwards;
+}
+
+.chat-icon {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 9998;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  border-radius: 9999px;
+  background-size: cover;
+  transition: background-image 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-image: url("../Images/chaticon.svg");
+}
+
+.chat-icon:hover {
+  background-image: url("../Images/chaticon_hover.svg");
+  transition: 0.3s ease-in-out;
+}
+
+.chat-icon-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chat-icon-animate {
+  transform: translateY(20px);
+}
+
+.mobile-chat-icon {
+  bottom: 1.25rem;
+  right: 1.25rem;
+  height: 4rem;
+  width: 4rem;
 }
 
 /* Header styles */
@@ -808,7 +952,6 @@ select {
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   flex-shrink: 0;
-  /* Prevent the header from shrinking */
   flex-basis: 48px;
 }
 
@@ -838,25 +981,18 @@ select {
 .message-list-container {
   max-height: 700px;
   overflow: auto;
-  /* This allows for scrolling */
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-/* Hide scrollbar by default */
-
 .message-list-container::-webkit-scrollbar {
   display: none;
 }
 
-/* Show scrollbar when there's overflow */
-
 .message-list-container:has(overflow)::-webkit-scrollbar {
   display: block;
 }
-
-/* Message styles */
 
 /* Input box */
 
@@ -864,11 +1000,8 @@ select {
   border-radius: 1rem;
   resize: none;
   border-style: none;
-  /* Removes border and resize handle */
   padding: 0.75rem;
-  /* Padding inside the input box */
   width: 100%;
-  /* Full width */
 }
 
 /* Send button */
@@ -880,14 +1013,11 @@ select {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  /* Adjust width as necessary */
   transition: background-color 0.3s ease-in-out;
-  /* Add transition for smooth effect */
 }
 
 .send-button:hover {
   transform: scale(0.95);
-  /* Shrink the button when hovered */
 }
 
 .transition {
@@ -901,7 +1031,6 @@ select {
 .send-icon {
   height: 100%;
   width: 100%;
-  /* Ensures the icon fills the button */
 }
 
 /* Predefined options */
@@ -946,9 +1075,7 @@ select {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-/* Predefined options animation*/
-
-/* Fade out animation */
+/* Predefined options animation */
 
 @keyframes fadeOut {
   from {
@@ -964,10 +1091,7 @@ select {
 
 .fade-out {
   animation: fadeOut 0.5s forwards;
-  /* forwards ensures the end state (opacity: 0) is maintained after animation completes */
 }
-
-/* Slide-in animation */
 
 @keyframes slideIn {
   from {
@@ -983,19 +1107,15 @@ select {
 
 .slide-in {
   animation: slideIn 0.3s ease-out;
-  /* Adjust duration and easing as desired */
 }
 
 /* Typing indicator styles */
 
 .typing-indicator-container {
   align-self: flex-start;
-  /* Aligns to the left */
   width: 60px;
-  /* Adjust as needed */
   height: 100px;
   margin-left: 10px;
-  /* Or adjust to align with your chatbot messages */
 }
 
 @keyframes pulse {
@@ -1008,85 +1128,25 @@ select {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.chat-icon {
+.visible {
+  visibility: visible;
+}
+
+.fixed {
   position: fixed;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  height: 5rem;
-  width: 5rem;
-  cursor: pointer;
-  border-radius: 9999px;
-  background-size: cover;
-  transition: background-image 0.3s ease-in-out, 0.3s ease-in-out;
-  background-image: url("../Images/chaticon.svg");
-  /* Default image */
 }
 
-.chat-icon:hover {
-  background-image: url("../Images/chaticon_hover.svg");
-  /* Hover image */
-  transition: 0.3s ease-in-out, 0.3s ease-in-out;
+.bottom-5 {
+  bottom: 1.25rem;
 }
 
-/*chatIcon animation*/
-
-@keyframes slideAndBounce {
-  0% {
-    transform: translateY(100vh);
-    /* Start off-screen */
-    opacity: 0;
-  }
-
-  70% {
-    transform: translateY(0);
-    /* End at the final position */
-    opacity: 1;
-  }
-
-  80% {
-    transform: translateY(-10px);
-    /* Bounce up a little */
-    opacity: 1;
-  }
-
-  90% {
-    transform: translateY(0);
-    /* Settle back into final position */
-    opacity: 1;
-  }
+.right-5 {
+  right: 1.25rem;
 }
 
-.chat-box-slide-and-bounce {
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  /* You can adjust the timing as you like */
-  animation: slideAndBounce 0.7s ease-out forwards;
-  /* Use forwards to maintain the final state */
+.z-\[9999\] {
+  z-index: 9999;
 }
-
-@keyframes slideOut {
-  0% {
-    transform: translateY(0);
-    /* Start at the current position */
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(100vh);
-    /* Slide off-screen */
-    opacity: 0;
-  }
-}
-
-.chat-box-slide-out {
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  /* You can adjust the timing as you like */
-  animation: slideOut 0.7s ease-in forwards;
-  /* Use forwards to maintain the final state */
-}
-
-/* Custom button and input styles can be added here */
 
 .block {
   display: block;
@@ -1112,8 +1172,8 @@ select {
   height: 58px;
 }
 
-.h-\[600px\] {
-  height: 600px;
+.h-full {
+  height: 100%;
 }
 
 .min-h-\[48px\] {
@@ -1124,12 +1184,12 @@ select {
   width: 0.75rem;
 }
 
-.w-4 {
-  width: 1rem;
+.w-8 {
+  width: 2rem;
 }
 
-.w-\[389px\] {
-  width: 389px;
+.w-full {
+  width: 100%;
 }
 
 .max-w-\[calc\(100\%-3rem\)\] {
@@ -1138,6 +1198,10 @@ select {
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.resize {
+  resize: both;
 }
 
 .flex-col {
@@ -1174,6 +1238,10 @@ select {
 
 .rounded-2xl {
   border-radius: 1rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
 .border {
@@ -1292,19 +1360,16 @@ select {
 .no-scrollbar::-webkit-scrollbar {
   height: 0px;
   width: 0px;
-  /* Remove scrollbar size */
 }
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
   border-radius: 9999px;
   --tw-bg-opacity: 1;
   background-color: rgb(63 63 70 / var(--tw-bg-opacity));
-  /* Scrollbar thumb styling */
 }
 
 .scrollbar-track-transparent::-webkit-scrollbar-track {
   background-color: transparent;
-  /* Scrollbar track styling */
 }
 
 .focus\:outline-none:focus {

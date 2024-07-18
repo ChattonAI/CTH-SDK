@@ -4,20 +4,120 @@
 
 /* Custom Styles for Chat UI */
 @layer components {
-
-  /* Chat box styles */
-  .chat-box {
-    @apply flex flex-col bg-opacity-75 backdrop-blur-3xl pb-1.5 fixed right-[60px] bottom-[60px]; 
+  .chat-box-wrapper {
+    @apply fixed inset-0 z-[9999] flex items-center justify-center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
   }
 
-  .chat-box-container {
-    transition: transform 0.5s ease-out;
+  .wrapper-visible {
+    opacity: 1;
+  }
+
+  .mobile-wrapper {
+    @apply items-center justify-center;
+    backdrop-filter: blur(10px);
+  }
+
+  .desktop-wrapper {
+    @apply items-end justify-end;
+  }
+
+  .desktop-no-blur {
+    backdrop-filter: none;
+  }
+
+  .chat-box {
+    @apply flex flex-col bg-opacity-75 backdrop-blur-3xl pb-1.5;
+    transition: all 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: auto;
+  }
+
+  .mobile-chat-box {
+    @apply w-11/12 h-5/6 max-w-md max-h-[600px];
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .desktop-chat-box {
+    @apply w-[389px] h-[600px];
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+  }
+
+  .mobile-chat-box-zoomed {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  @keyframes slideInMobile {
+    0% { transform: translate(-50%, 100%); }
+    100% { transform: translate(-50%, -50%); }
+  }
+
+  @keyframes slideOutMobile {
+    0% { transform: translate(-50%, -50%); }
+    100% { transform: translate(-50%, 100%); }
+  }
+
+  @keyframes slideInDesktop {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes slideOutDesktop {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+
+  .chat-box-slide-in {
+    animation: slideInMobile 0.3s forwards;
+  }
+
+  .chat-box-slide-out {
+    animation: slideOutMobile 0.3s forwards;
+  }
+
+  .desktop-chat-box.chat-box-slide-in {
+    animation: slideInDesktop 0.3s forwards;
+  }
+
+  .desktop-chat-box.chat-box-slide-out {
+    animation: slideOutDesktop 0.3s forwards;
+  }
+
+  .chat-icon {
+    @apply fixed bottom-10 right-10 w-20 h-20 rounded-full cursor-pointer z-[9998];
+    background-size: cover;
+    transition: background-image 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    background-image: url("../Images/chaticon.svg");
+  }
+
+  .chat-icon:hover {
+    background-image: url("../Images/chaticon_hover.svg");
+    transition: 0.3s ease-in-out;
+  }
+
+  .chat-icon-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .chat-icon-animate {
+    transform: translateY(20px);
+  }
+
+  .mobile-chat-icon {
+    @apply bottom-5 right-5 w-16 h-16;
   }
 
   /* Header styles */
   .chat-header {
     @apply w-full flex bg-opacity-75 justify-between items-center px-4 rounded-tl-2xl rounded-tr-2xl backdrop-blur-3xl;
-    flex-shrink: 0; /* Prevent the header from shrinking */
+    flex-shrink: 0;
     flex-basis: 48px;
   }
 
@@ -43,41 +143,36 @@
     transition: transform 0.3s ease-in-out;
   }
 
-
   /* Message list styles */
   .message-list-container {
-    @apply max-h-[700px] overflow-auto; /* This allows for scrolling */
+    @apply max-h-[700px] overflow-auto;
     @apply flex flex-col gap-2;
   }
 
-  /* Hide scrollbar by default */
   .message-list-container::-webkit-scrollbar {
     display: none;
   }
 
-  /* Show scrollbar when there's overflow */
   .message-list-container:has(overflow)::-webkit-scrollbar {
     display: block;
   }
 
-  /* Message styles */
-  
   /* Input box */
   .chat-input {
     @apply rounded-2xl;
-    @apply border-none resize-none; /* Removes border and resize handle */
-    @apply p-3; /* Padding inside the input box */
-    @apply w-full; /* Full width */
+    @apply border-none resize-none;
+    @apply p-3;
+    @apply w-full;
   }
   
   /* Send button */
   .send-button {
-    @apply w-[58px] h-[58px] flex items-center justify-center shrink-0; /* Adjust width as necessary */
-    transition: background-color 0.3s ease-in-out; /* Add transition for smooth effect */
+    @apply w-[58px] h-[58px] flex items-center justify-center shrink-0;
+    transition: background-color 0.3s ease-in-out;
   }
 
   .send-button:hover {
-    transform: scale(0.95); /* Shrink the button when hovered */
+    transform: scale(0.95);
   }
 
   .transition {
@@ -89,7 +184,7 @@
   }
 
   .send-icon {
-    @apply w-full h-full; /* Ensures the icon fills the button */
+    @apply w-full h-full;
   }
 
   /* Predefined options */
@@ -101,8 +196,7 @@
     @apply bg-opacity-80 hover:bg-opacity-100 focus:bg-opacity-100 hover:backdrop-blur-sm focus:backdrop-blur-sm transition-all duration-300 ease-in-out text-sm font-medium py-2 px-6 rounded-full cursor-pointer m-2;
   }
 
-  /* Predefined options animation*/
-  /* Fade out animation */
+  /* Predefined options animation */
   @keyframes fadeOut {
     from {
       opacity: 1;
@@ -115,11 +209,9 @@
   }
 
   .fade-out {
-    animation: fadeOut 0.5s forwards; /* forwards ensures the end state (opacity: 0) is maintained after animation completes */
+    animation: fadeOut 0.5s forwards;
   }
 
-
-  /* Slide-in animation */
   @keyframes slideIn {
     from {
       transform: translateY(20px);
@@ -132,77 +224,20 @@
   }
 
   .slide-in {
-    animation: slideIn 0.3s ease-out; /* Adjust duration and easing as desired */
+    animation: slideIn 0.3s ease-out;
   }
-
 
   /* Typing indicator styles */
   .typing-indicator-container {
-    align-self: flex-start; /* Aligns to the left */
-    width: 60px; /* Adjust as needed */
+    align-self: flex-start;
+    width: 60px;
     height: 100px;
-    margin-left: 10px; /* Or adjust to align with your chatbot messages */
+    margin-left: 10px;
   }
 
   .typing-indicator {
     @apply animate-pulse;
   }
-
-  .chat-icon {
-    @apply fixed bottom-10 right-10 w-20 h-20 rounded-full cursor-pointer;
-    background-size: cover;
-    transition: background-image 0.3s ease-in-out, 0.3s ease-in-out;
-    background-image: url("../Images/chaticon.svg"); /* Default image */
-  }
-
-  .chat-icon:hover {
-    background-image: url("../Images/chaticon_hover.svg"); /* Hover image */
-    transition: 0.3s ease-in-out, 0.3s ease-in-out;
-  }
-
-
-  /*chatIcon animation*/
-  @keyframes slideAndBounce {
-    0% {
-      transform: translateY(100vh); /* Start off-screen */
-      opacity: 0;
-    }
-    70% {
-      transform: translateY(0); /* End at the final position */
-      opacity: 1;
-    }
-    80% {
-      transform: translateY(-10px); /* Bounce up a little */
-      opacity: 1;
-    }
-    90% {
-      transform: translateY(0); /* Settle back into final position */
-      opacity: 1;
-    }
-  }
-
-  .chat-box-slide-and-bounce {
-    @apply duration-700 ease-out; /* You can adjust the timing as you like */
-    animation: slideAndBounce 0.7s ease-out forwards; /* Use forwards to maintain the final state */
-  }
-
-  @keyframes slideOut {
-  0% {
-    transform: translateY(0); /* Start at the current position */
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh); /* Slide off-screen */
-    opacity: 0;
-  }
-  }
-
-  .chat-box-slide-out {
-    @apply duration-700 ease-in; /* You can adjust the timing as you like */
-    animation: slideOut 0.7s ease-in forwards; /* Use forwards to maintain the final state */
-  }
-  /* Custom button and input styles can be added here */
-
 }
 
 /* Custom utilities */
@@ -244,14 +279,14 @@
   background: transparent;
 }
 
-  .no-scrollbar::-webkit-scrollbar {
-    @apply w-0 h-0; /* Remove scrollbar size */
-  }
+.no-scrollbar::-webkit-scrollbar {
+  @apply w-0 h-0;
+}
 
-  .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-zinc-700; /* Scrollbar thumb styling */
-  }
+.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-zinc-700;
+}
 
-  .scrollbar-track-transparent::-webkit-scrollbar-track {
-    @apply bg-transparent; /* Scrollbar track styling */
-  }
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}

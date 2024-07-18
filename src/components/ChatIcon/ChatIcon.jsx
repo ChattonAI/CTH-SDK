@@ -1,42 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatBox from '../ChatBox/ChatBox';
 
 const ChatIcon = ({ predefinedMessages, apiKey }) => {
-    const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
-    const [showPredefined, setShowPredefined] = useState(true);
-    const [messages, setMessages] = useState([]);
+  const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
+  const [showPredefined, setShowPredefined] = useState(true);
+  const [messages, setMessages] = useState([]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-    
-
-    const toggleChatBox = () => {
-        setIsChatBoxVisible(!isChatBoxVisible);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    const hidePredefinedMessages = () => {
-        setShowPredefined(false); // Hide predefined messages once a message is sent
-    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
 
-    return (
-        <>
-            <div 
-                className={`chat-icon ${isChatBoxVisible ? 'chat-box-slide-out' : 'chat-box-slide-and-bounce'}`} 
-                onClick={toggleChatBox}>
-                {/* Removed the inner div with the "chat-icon" class */}
-            </div>
-            {isChatBoxVisible && (
-                <ChatBox
-                    isVisible={isChatBoxVisible}
-                    onClose={toggleChatBox}
-                    predefinedMessages={predefinedMessages}
-                    showPredefinedOptions={showPredefined}
-                    onHidePredefined={hidePredefinedMessages}
-                    messages={messages}
-                    setMessages={setMessages}
-                    apiKey={apiKey} // your API key passed through props
-                />
-            )}
-        </>
-    );
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleChatBox = () => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setIsChatBoxVisible(!isChatBoxVisible);
+      setTimeout(() => setIsAnimating(false), 300); // Reduced from 700ms to 300ms
+    }
+  };
+
+  const hidePredefinedMessages = () => {
+    setShowPredefined(false);
+  };
+
+  return (
+    <>
+      <div
+        className={`chat-icon ${isChatBoxVisible ? 'chat-icon-hidden' : ''} ${isMobile ? 'mobile-chat-icon' : ''} ${isAnimating ? 'chat-icon-animate' : ''}`}
+        onClick={toggleChatBox}
+      />
+      {isChatBoxVisible && (
+        <ChatBox
+          isVisible={isChatBoxVisible}
+          onClose={toggleChatBox}
+          predefinedMessages={predefinedMessages}
+          showPredefinedOptions={showPredefined}
+          onHidePredefined={hidePredefinedMessages}
+          messages={messages}
+          setMessages={setMessages}
+          apiKey={apiKey}
+          isMobile={isMobile}
+        />
+      )}
+    </>
+  );
 };
 
 export default ChatIcon;

@@ -4,16 +4,15 @@ import sendingAnimationData from '../../Animations/Sending-Animation.json';
 import SendingAnimation from '../SendingAnimation/SendingAnimation';
 import config from '../../config/cth-sdk-config';
 
-const InputBox = ({ onSendMessage, isSending }) => {
+const InputBox = ({ onSendMessage, isSending, onFocus, onBlur }) => {
   const [message, setMessage] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
   const { height, backgroundColor, backgroundOpacity, textColor } = config.chatInput;
 
   const resizeTextarea = (e) => {
     const minHeight = 58; // Set the minimum height
     e.target.style.height = 'inherit';
-    e.target.style.height = `${Math.max(e.target.scrollHeight, minHeight)}px`; 
+    e.target.style.height = `${Math.max(e.target.scrollHeight, minHeight)}px`;
   };
 
   // Event handler for input change
@@ -50,6 +49,8 @@ const InputBox = ({ onSendMessage, isSending }) => {
         maxLength={200} // Limit input to 200 characters
         style={{ lineHeight: '2', overflowY: 'hidden' }} // Hide the scrollbar
         onInput={resizeTextarea} // Adjust the height when the user types
+        onFocus={() => onFocus()} // Call the onFocus prop
+        onBlur={() => onBlur()} // Call the onBlur prop
       />
       <button
         className={`send-button ${isSending ? 'transition' : ''}`}

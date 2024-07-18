@@ -1,9 +1,11 @@
 const config = {
     chatBox: {
-        width: "w-[389px]",
-        height: "h-[600px]",
+        width: "w-full", // Full width for both mobile and desktop
+        height: "h-full", // Full height for both mobile and desktop
         backgroundColor: "bg-neutral-200",
-        borderRadius: "rounded-2xl"
+        backgroundOpacity: "bg-opacity-75",
+        borderRadius: "rounded-2xl", // Rounded corners for both mobile and desktop
+        position: "fixed bottom-5 right-5" // Position for desktop
     },
     chatHeader: {
         backgroundColor: "bg-stone-300",

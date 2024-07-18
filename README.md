@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 For detailed usage instructions and customisation options, please refer to our [documentation](documentation.chattonai.com).
 
-## Customising and Pushing Your Version to CDN
+## Customising
 
 CTH-SDK allows for extensive customisation to fit your specific requirements. To learn more about how you can customise the chatbox, please refer to our [detailed documentation](documentation.chattonai.com).
 

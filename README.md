@@ -4,7 +4,7 @@ CTH-SDK is a comprehensive solution for integrating advanced chatbot functionali
 
 ## Important Notice
 
-While modifications and customisations to the SDK are permitted, it is required that all implementations of the CTH-SDK visibly display "POWERED BY CHATTONAI" with a hyperlink to [ChattonAI's website](#), within the chat box's UI. This attribution must be preserved in any version of the SDK that is used publicly.
+While modifications and customisations to the SDK are permitted, it is required that all implementations of the CTH-SDK visibly display "POWERED BY CHATTONAI" with a hyperlink to [ChattonAI's website](https://chattonai.com), within the chat box's UI. This attribution must be preserved in any version of the SDK that is used publicly.
 
 ## Installation
 
@@ -35,7 +35,7 @@ To host locally run:
 
 ```npm start```
 
-After installation, you can initialise and use the SDK in your JavaScript code as follows:
+After installation, you can initialise and use the SDK in your JavaScript or html code as follows:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 For detailed usage instructions and customisation options, please refer to our [documentation](documentation.chattonai.com).
 
-## Customising and Pushing Your Version to CDN
+## Customising
 
-CTH-SDK allows for extensive customisation to fit your specific requirements. To learn more about how you can customise and push your own version of the SDK to our CDN, please refer to our [detailed documentation](documentation.chattonai.com/cdn).
+CTH-SDK allows for extensive customisation to fit your specific requirements. To learn more about how you can customise the chatbox, please refer to our [detailed documentation](documentation.chattonai.com).
 
 ## Contributing
 

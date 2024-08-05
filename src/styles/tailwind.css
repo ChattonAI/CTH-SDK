@@ -4,6 +4,8 @@
 
 /* Custom Styles for Chat UI */
 @layer components {
+
+  /* Chat box styles */
   .chat-box-wrapper {
     @apply fixed inset-0 z-[9999] flex items-center justify-center;
     pointer-events: none;
@@ -29,7 +31,7 @@
   }
 
   .chat-box {
-    @apply flex flex-col bg-opacity-75 backdrop-blur-3xl pb-1.5;
+    @apply flex flex-col bg-opacity-75 bacxkdrop-blur-3xl pb-1.5;
     transition: all 0.3s ease-in-out, transform 0.3s ease-in-out;
     pointer-events: auto;
   }
@@ -89,6 +91,7 @@
     animation: slideOutDesktop 0.3s forwards;
   }
 
+  /* Chat icon styles */
   .chat-icon {
     @apply fixed bottom-10 right-10 w-20 h-20 rounded-full cursor-pointer z-[9998];
     background-size: cover;
@@ -97,8 +100,7 @@
   }
 
   .chat-icon:hover {
-    background-image: url("../Images/chaticon_hover.svg");
-    transition: 0.3s ease-in-out;
+    transform: scale(1.05);
   }
 
   .chat-icon-hidden {
@@ -112,6 +114,10 @@
 
   .mobile-chat-icon {
     @apply bottom-5 right-5 w-16 h-16;
+  }
+
+  .ping-notification {
+    @apply absolute -top-1 -right-1;
   }
 
   /* Header styles */

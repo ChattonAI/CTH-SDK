@@ -777,6 +777,8 @@ select {
   }
 }
 
+/* Chat box styles */
+
 .chat-box-wrapper {
   position: fixed;
   inset: 0px;
@@ -901,6 +903,8 @@ select {
   animation: slideOutDesktop 0.3s forwards;
 }
 
+/* Chat icon styles */
+
 .chat-icon {
   position: fixed;
   bottom: 2.5rem;
@@ -916,8 +920,7 @@ select {
 }
 
 .chat-icon:hover {
-  background-image: url("../Images/chaticon_hover.svg");
-  transition: 0.3s ease-in-out;
+  transform: scale(1.05);
 }
 
 .chat-icon-hidden {
@@ -934,6 +937,12 @@ select {
   right: 1.25rem;
   height: 4rem;
   width: 4rem;
+}
+
+.ping-notification {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
 }
 
 /* Header styles */
@@ -1128,12 +1137,16 @@ select {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.visible {
-  visibility: visible;
-}
-
 .fixed {
   position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
 }
 
 .bottom-5 {
@@ -1154,6 +1167,10 @@ select {
 
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .hidden {
@@ -1200,6 +1217,17 @@ select {
   flex-grow: 1;
 }
 
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
 .resize {
   resize: both;
 }
@@ -1240,6 +1268,10 @@ select {
   border-radius: 1rem;
 }
 
+.rounded-full {
+  border-radius: 9999px;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1258,9 +1290,19 @@ select {
   background-color: rgb(229 229 229 / var(--tw-bg-opacity));
 }
 
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
 .bg-stone-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(214 211 209 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-75 {
@@ -1318,6 +1360,10 @@ select {
 .text-zinc-800 {
   --tw-text-opacity: 1;
   color: rgb(39 39 42 / var(--tw-text-opacity));
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }
 
 .transition {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios'; // Make sure to install axios: npm install axios
 import ChatHeader from '../ChatHeader/ChatHeader.jsx';
 import MessageList from '../MessageList/MessageList.jsx';
 import InputBox from '../InputBox/InputBox.jsx';
@@ -11,6 +12,7 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
   const [isClosing, setIsClosing] = useState(false);
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [showPing, setShowPing] = useState(false);
   const messageListContainer = useRef(null);
 
   const appendMessage = (messageText, isUser) => {
@@ -29,19 +31,26 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
 
     if (isUser) {
       setIsSending(true);
+      console.log('Node environment:', process.env.NODE_ENV); // Check the current Node environment
+      // Use environment variables with Create React App
+      const apiEndpoint = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_ENDPOINT : process.env.REACT_APP_API_ENDPOINT;
+      const apiKey = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_KEY : process.env.REACT_APP_API_KEY;
 
-      const apiEndpoint = 'https://ipcv9qzgyh.execute-api.us-east-1.amazonaws.com/Test';
       const payload = {
         message: content,
-        apiKey: apiKey,
         session_id: currentSessionId,
       };
 
       try {
+        if (!apiEndpoint || !apiKey) {
+          throw new Error('API endpoint or key is undefined');
+        }
+
         const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'text/plain;charset=UTF-8',
+            'x-api-key': apiKey,
           },
           body: JSON.stringify(payload),
         });
@@ -54,9 +63,11 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
           }
         } else {
           console.error('API request failed:', response);
+          appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
         }
       } catch (error) {
         console.error('Error sending message:', error);
+        appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
       } finally {
         setIsSending(false);
         setIsChatbotTyping(false);
@@ -75,6 +86,14 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
   const handleInputFocus = (focused) => {
     setIsInputFocused(focused);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPing(true);
+    }, 3000); // Show ping after 3 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const { backgroundColor, backgroundOpacity, borderRadius } = config.chatBox;
   

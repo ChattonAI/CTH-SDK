@@ -14,7 +14,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js', // Output file
-        library: 'CTH-SDK', // Global variable for your SDK
+        library: 'CTH-SDK', // Library name
         libraryTarget: 'umd', // Universal Module Definition
         globalObject: 'this' // Compatibility with both browser and Node.js environments
     },

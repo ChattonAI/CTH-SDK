@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import SendIcon from '../../Images/black-send.svg'
+import SendIcon from '../../Images/white-black-send.svg'
 import sendingAnimationData from '../../Animations/Sending-Animation.json';
 import SendingAnimation from '../SendingAnimation/SendingAnimation';
 import config from '../../config/cth-sdk-config';

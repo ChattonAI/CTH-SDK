@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseIcon from '../../Images/exit.svg';
+import CloseIcon from '../../Images/black-exit.svg';
 import HeaderIcon from '../../Images/ChattonAI_logo_Q2-2.png';
 import config from '../../config/cth-sdk-config';
 

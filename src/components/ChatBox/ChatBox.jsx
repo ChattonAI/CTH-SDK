@@ -1,19 +1,51 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios'; // Make sure to install axios: npm install axios
+import axios from 'axios';
 import ChatHeader from '../ChatHeader/ChatHeader.jsx';
 import MessageList from '../MessageList/MessageList.jsx';
 import InputBox from '../InputBox/InputBox.jsx';
 import PredefinedOptions from '../PredefinedOptions/PredefinedOptions.jsx';
 import config from '../../config/cth-sdk-config.js';
 
-const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, apiKey, isMobile }) => {
+const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, isMobile, businessId }) => {
   const [isSending, setIsSending] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [showPing, setShowPing] = useState(false);
+  const [authToken, setAuthToken] = useState(null);
   const messageListContainer = useRef(null);
+
+  const AUTH_ENDPOINT = "https://chat.chattonai.com/api/chatbot/auth";
+  const GENERATE_ENDPOINT = "https://chat.chattonai.com/api/chatbot/generate/response";
+
+  useEffect(() => {
+    // Retrieve stored token and business ID on component mount
+    const storedToken = localStorage.getItem('authToken');
+    const storedBusinessId = localStorage.getItem('businessId');
+
+    if (storedToken && storedBusinessId === businessId) {
+      setAuthToken(storedToken);
+    } else {
+      getAuthToken();
+    }
+  }, [businessId]);
+
+  const getAuthToken = async () => {
+    try {
+      const response = await axios.get(AUTH_ENDPOINT, {
+        headers: {
+          'x-business-id': businessId,
+        },
+      });
+      const newToken = response.data.token;
+      setAuthToken(newToken);
+      localStorage.setItem('authToken', newToken);
+      localStorage.setItem('businessId', businessId);
+    } catch (error) {
+      console.error('Error getting auth token:', error);
+    }
+  };
 
   const appendMessage = (messageText, isUser) => {
     setMessages(prevMessages => [...prevMessages, { text: messageText, isUser }]);
@@ -31,10 +63,6 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
 
     if (isUser) {
       setIsSending(true);
-      console.log('Node environment:', process.env.NODE_ENV); // Check the current Node environment
-      // Use environment variables with Create React App
-      const apiEndpoint = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_ENDPOINT : process.env.REACT_APP_API_ENDPOINT;
-      const apiKey = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_API_KEY : process.env.REACT_APP_API_KEY;
 
       const payload = {
         message: content,
@@ -42,32 +70,31 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
       };
 
       try {
-        if (!apiEndpoint || !apiKey) {
-          throw new Error('API endpoint or key is undefined');
+        if (!authToken) {
+          await getAuthToken();
         }
 
-        const response = await fetch(apiEndpoint, {
-          method: 'POST',
+        const response = await axios.post(GENERATE_ENDPOINT, payload, {
           headers: {
-            'Content-Type': 'text/plain;charset=UTF-8',
-            'x-api-key': apiKey,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
+            'x-business-id': businessId,
           },
-          body: JSON.stringify(payload),
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          appendMessage(data.body, false);
-          if (data.session_id) {
-            setCurrentSessionId(data.session_id);
-          }
-        } else {
-          console.error('API request failed:', response);
-          appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
+        appendMessage(response.data.body, false);
+        if (response.data.session_id) {
+          setCurrentSessionId(response.data.session_id);
         }
       } catch (error) {
         console.error('Error sending message:', error);
-        appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
+        if (error.response && error.response.status === 401) {
+          // Token is invalid, get a new one and retry
+          await getAuthToken();
+          await sendMessage(content, isUser);
+        } else {
+          appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
+        }
       } finally {
         setIsSending(false);
         setIsChatbotTyping(false);
@@ -90,7 +117,7 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPing(true);
-    }, 3000); // Show ping after 3 seconds
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);

@@ -37,6 +37,8 @@ To host locally run:
 
 After installation, you can initialise and use the SDK in your JavaScript or html code as follows:
 
+###JavaScript
+
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
   if (window.ChattonAI_Chatbot_SDK) {
@@ -47,6 +49,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+```
+
+###HTML
+
+```html
+  <script src="https://cdn.chattonai.com/bundle.js"></script>
+  <script>
+    window.ChattonAI_Chatbot_SDK.init({
+      businessId: "business001",
+      predefinedMessages: ["Hello!", "How will this benefit my site?", "Help me pick a plan", "what is text analysis?"]
+    });
+  </script>
 ```
 
 For detailed usage instructions and customisation options, please refer to our [documentation](documentation.chattonai.com).

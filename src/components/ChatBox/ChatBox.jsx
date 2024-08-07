@@ -6,30 +6,54 @@ import InputBox from '../InputBox/InputBox.jsx';
 import PredefinedOptions from '../PredefinedOptions/PredefinedOptions.jsx';
 import config from '../../config/cth-sdk-config.js';
 
-const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOptions, onHidePredefined, setMessages, messages, isMobile, businessId }) => {
+const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, businessId, predefinedMessages = [] }) => {
   const [isSending, setIsSending] = useState(false);
-  const [currentSessionId, setCurrentSessionId] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
   const [isChatbotTyping, setIsChatbotTyping] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [showPing, setShowPing] = useState(false);
   const [authToken, setAuthToken] = useState(null);
+  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [suggestions, setSuggestions] = useState([]);
   const messageListContainer = useRef(null);
 
   const AUTH_ENDPOINT = "https://chat.chattonai.com/api/chatbot/auth";
   const GENERATE_ENDPOINT = "https://chat.chattonai.com/api/chatbot/generate/response";
 
   useEffect(() => {
-    // Retrieve stored token and business ID on component mount
-    const storedToken = localStorage.getItem('authToken');
-    const storedBusinessId = localStorage.getItem('businessId');
+    // Retrieve stored data on component mount
+    const storedToken = sessionStorage.getItem('authToken');
+    const storedSessionId = sessionStorage.getItem('sessionId');
+    const storedBusinessId = sessionStorage.getItem('businessId');
+    const storedSuggestions = JSON.parse(sessionStorage.getItem('suggestions'));
+    const storedMessages = JSON.parse(sessionStorage.getItem('messages'));
 
     if (storedToken && storedBusinessId === businessId) {
       setAuthToken(storedToken);
     } else {
       getAuthToken();
     }
-  }, [businessId]);
+
+    if (storedSessionId) {
+      setCurrentSessionId(storedSessionId);
+    }
+
+    if (storedSuggestions && storedSuggestions.length > 0) {
+      setSuggestions(storedSuggestions);
+    } else {
+      setSuggestions(predefinedMessages);
+    }
+
+    if (storedMessages && storedMessages.length > 0) {
+      setMessages(storedMessages);
+    }
+  }, [businessId, predefinedMessages, setMessages]);
+
+  useEffect(() => {
+    // Save suggestions and messages to sessionStorage whenever they change
+    sessionStorage.setItem('suggestions', JSON.stringify(suggestions));
+    sessionStorage.setItem('messages', JSON.stringify(messages));
+  }, [suggestions, messages]);
 
   const getAuthToken = async () => {
     try {
@@ -40,8 +64,8 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
       });
       const newToken = response.data.token;
       setAuthToken(newToken);
-      localStorage.setItem('authToken', newToken);
-      localStorage.setItem('businessId', businessId);
+      sessionStorage.setItem('authToken', newToken);
+      sessionStorage.setItem('businessId', businessId);
     } catch (error) {
       console.error('Error getting auth token:', error);
     }
@@ -56,10 +80,6 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
 
     setIsChatbotTyping(true);
     appendMessage(content, isUser);
-
-    if (isUser && showPredefinedOptions) {
-      onHidePredefined();
-    }
 
     if (isUser) {
       setIsSending(true);
@@ -82,10 +102,20 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
           },
         });
 
-        appendMessage(response.data.body, false);
+        const responseData = JSON.parse(response.data.body);
+        appendMessage(responseData.response, false);
+        
         if (response.data.session_id) {
           setCurrentSessionId(response.data.session_id);
+          sessionStorage.setItem('sessionId', response.data.session_id);
         }
+
+        if (responseData.suggestions && responseData.suggestions.length > 0) {
+          setSuggestions(responseData.suggestions);
+        } else {
+          setSuggestions([]);
+        }
+
       } catch (error) {
         console.error('Error sending message:', error);
         if (error.response && error.response.status === 401) {
@@ -149,11 +179,11 @@ const ChatBox = ({ predefinedMessages = [], isVisible, onClose, showPredefinedOp
         <div className="message-list-container flex-grow scrollbar" ref={messageListContainer}>
           <MessageList messages={messages} isTyping={isChatbotTyping} />
         </div>
-        {showPredefinedOptions && predefinedMessages.length > 0 && (
+        {suggestions.length > 0 && (
           <PredefinedOptions 
             onSendMessage={sendMessage} 
-            predefinedMessages={predefinedMessages} 
-            isVisible={showPredefinedOptions}
+            predefinedMessages={suggestions}
+            isVisible={true}
           />
         )}
         <InputBox 

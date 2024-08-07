@@ -15,7 +15,6 @@ window.ChattonAI_Chatbot_SDK = {
       document.body.appendChild(container);
     }
 
-    // Now, we can render the ChatIcon into the container
     // ChatBox will be rendered by ChatIcon when needed
     const root = createRoot(container);
     root.render(
@@ -26,5 +25,4 @@ window.ChattonAI_Chatbot_SDK = {
   }
 };
 
-// Export the ChatIcon instead if you need to expose it for reusability
 export { ChatIcon };

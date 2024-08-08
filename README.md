@@ -37,7 +37,7 @@ To host locally run:
 
 After installation, you can initialise and use the SDK in your JavaScript or html code as follows:
 
-###JavaScript
+### JavaScript
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 ```
 
-###HTML
+### HTML
 
 ```html
   <script src="https://cdn.chattonai.com/bundle.js"></script>

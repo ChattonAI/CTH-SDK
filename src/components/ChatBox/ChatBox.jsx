@@ -73,6 +73,7 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
 
   const appendMessage = (messageText, isUser) => {
     setMessages(prevMessages => [...prevMessages, { text: messageText, isUser }]);
+    setSuggestions([]); // Clear suggestions after sending a message - testing
   };
 
   const sendMessage = async (content, isUser = true) => {
@@ -99,6 +100,7 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${authToken}`,
             'x-business-id': businessId,
+            'x-session-id': currentSessionId,
           },
         });
 
@@ -123,7 +125,7 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
           await getAuthToken();
           await sendMessage(content, isUser);
         } else {
-          appendMessage("Sorry, I couldn't process your request. Please try again later.", false);
+          appendMessage("Sorry, I couldn't process your message. Please try again later.", false);
         }
       } finally {
         setIsSending(false);

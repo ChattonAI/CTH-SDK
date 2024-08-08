@@ -73,7 +73,7 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
 
   const appendMessage = (messageText, isUser) => {
     setMessages(prevMessages => [...prevMessages, { text: messageText, isUser }]);
-    setSuggestions([]); // Clear suggestions after sending a message - testing
+    setSuggestions([]);
   };
 
   const sendMessage = async (content, isUser = true) => {

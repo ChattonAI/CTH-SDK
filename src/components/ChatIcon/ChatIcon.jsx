@@ -3,8 +3,10 @@ import ChatBox from '../ChatBox/ChatBox';
 
 const ChatIcon = ({ predefinedMessages, businessId }) => {
   const [isChatBoxVisible, setIsChatBoxVisible] = useState(false);
-  const [showPredefined, setShowPredefined] = useState(true);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => {
+    const storedMessages = JSON.parse(sessionStorage.getItem('messages'));
+    return storedMessages || [];
+  });
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showPing, setShowPing] = useState(false);
@@ -36,10 +38,6 @@ const ChatIcon = ({ predefinedMessages, businessId }) => {
     }
   };
 
-  const hidePredefinedMessages = () => {
-    setShowPredefined(false);
-  };
-
   return (
     <>
       <div
@@ -60,8 +58,6 @@ const ChatIcon = ({ predefinedMessages, businessId }) => {
           isVisible={isChatBoxVisible}
           onClose={toggleChatBox}
           predefinedMessages={predefinedMessages}
-          showPredefinedOptions={showPredefined}
-          onHidePredefined={hidePredefinedMessages}
           messages={messages}
           setMessages={setMessages}
           businessId={businessId}

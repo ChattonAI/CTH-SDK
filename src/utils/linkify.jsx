@@ -1,31 +1,53 @@
 import React from 'react';
 
+// Styles for the links
+const linkStyle = {
+    color: '#0000EE',  // Standard link blue color
+    textDecoration: 'underline',
+    cursor: 'pointer'
+};
+
 // Helper function to turn Markdown links into React elements
 const linkify = (text) => {
-        if (text === undefined) {
+    if (text === undefined) {
         return []; // Return an empty array or some default value
     }
-    const extendedMarkdownLinkRegex =
-        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)\s*(?:【\d+†source】)?/gi;
 
-    // Split the text into parts separated by Markdown links
-    const parts = text.split(extendedMarkdownLinkRegex);
+    // Regular expression to match Markdown links
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
 
-    // Construct a sequence of strings and link elements
+    let lastIndex = 0;
     const elements = [];
-    for (let i = 0; i < parts.length; i += 3) {
-        elements.push(parts[i]); // Regular text
-        if (i + 1 < parts.length && i + 2 < parts.length) {
-            // Markdown link detected, create a React element
-            elements.push(
-                <a key={i} href={parts[i + 2]} target="_blank" rel="noopener noreferrer">
-                    {parts[i + 1]}
-                </a>
-            );
+
+    // Find all matches
+    let match;
+    while ((match = linkRegex.exec(text)) !== null) {
+        // Add the text before the link
+        if (match.index > lastIndex) {
+            elements.push(text.slice(lastIndex, match.index));
         }
+
+        // Add the link
+        elements.push(
+            <a 
+                key={match.index} 
+                href={match[2]} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={linkStyle}
+            >
+                {match[1]}
+            </a>
+        );
+
+        lastIndex = match.index + match[0].length;
     }
 
-    // Return an array of strings and JSX elements which React can render
+    // Add any remaining text after the last link
+    if (lastIndex < text.length) {
+        elements.push(text.slice(lastIndex));
+    }
+
     return elements;
 };
 

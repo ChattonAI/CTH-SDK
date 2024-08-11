@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import ChatHeader from '../ChatHeader/ChatHeader.jsx';
 import MessageList from '../MessageList/MessageList.jsx';
@@ -13,23 +13,78 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [showPing, setShowPing] = useState(false);
   const [authToken, setAuthToken] = useState(null);
+  const [tokenExpirationTime, setTokenExpirationTime] = useState(null);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const messageListContainer = useRef(null);
+  const refreshTokenTimeoutRef = useRef(null);
 
   const AUTH_ENDPOINT = "https://chat.chattonai.com/api/chatbot/auth";
   const GENERATE_ENDPOINT = "https://chat.chattonai.com/api/chatbot/generate/response";
 
+  const axiosInstance = axios.create({
+    timeout: 10000, // Set a timeout of 10 seconds
+  });
+
+  const getAuthToken = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get(AUTH_ENDPOINT, {
+        headers: {
+          'x-business-id': businessId,
+        },
+      });
+      const newToken = response.data.token;
+      const expiresIn = response.data.expiresIn || 3600; // Default to 1 hour if not provided
+      const newExpirationTime = Date.now() + expiresIn * 1000;
+
+      setAuthToken(newToken);
+      setTokenExpirationTime(newExpirationTime);
+      sessionStorage.setItem('authToken', newToken);
+      sessionStorage.setItem('tokenExpirationTime', newExpirationTime.toString());
+      sessionStorage.setItem('businessId', businessId);
+
+      // Schedule the next token refresh
+      scheduleTokenRefresh(expiresIn);
+
+      return newToken;
+    } catch (error) {
+      console.error('Error getting auth token:', error);
+      throw error;
+    }
+  }, [businessId]);
+
+  const scheduleTokenRefresh = useCallback((expiresIn) => {
+    // Clear any existing timeout
+    if (refreshTokenTimeoutRef.current) {
+      clearTimeout(refreshTokenTimeoutRef.current);
+    }
+
+    // Schedule a new timeout to refresh the token
+    const refreshTime = (expiresIn - 300) * 1000; // 5 minutes before expiration
+    refreshTokenTimeoutRef.current = setTimeout(() => {
+      getAuthToken();
+    }, refreshTime);
+  }, [getAuthToken]);
+
   useEffect(() => {
     // Retrieve stored data on component mount
     const storedToken = sessionStorage.getItem('authToken');
+    const storedExpirationTime = sessionStorage.getItem('tokenExpirationTime');
     const storedSessionId = sessionStorage.getItem('sessionId');
     const storedBusinessId = sessionStorage.getItem('businessId');
     const storedSuggestions = JSON.parse(sessionStorage.getItem('suggestions'));
     const storedMessages = JSON.parse(sessionStorage.getItem('messages'));
 
-    if (storedToken && storedBusinessId === businessId) {
-      setAuthToken(storedToken);
+    if (storedToken && storedExpirationTime && storedBusinessId === businessId) {
+      const expirationTime = parseInt(storedExpirationTime, 10);
+      if (expirationTime > Date.now()) {
+        setAuthToken(storedToken);
+        setTokenExpirationTime(expirationTime);
+        const timeUntilExpiration = expirationTime - Date.now();
+        scheduleTokenRefresh(timeUntilExpiration / 1000);
+      } else {
+        getAuthToken();
+      }
     } else {
       getAuthToken();
     }
@@ -47,29 +102,20 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
     if (storedMessages && storedMessages.length > 0) {
       setMessages(storedMessages);
     }
-  }, [businessId, predefinedMessages, setMessages]);
+
+    // Cleanup function to clear the timeout when the component unmounts
+    return () => {
+      if (refreshTokenTimeoutRef.current) {
+        clearTimeout(refreshTokenTimeoutRef.current);
+      }
+    };
+  }, [businessId, predefinedMessages, setMessages, getAuthToken, scheduleTokenRefresh]);
 
   useEffect(() => {
     // Save suggestions and messages to sessionStorage whenever they change
     sessionStorage.setItem('suggestions', JSON.stringify(suggestions));
     sessionStorage.setItem('messages', JSON.stringify(messages));
   }, [suggestions, messages]);
-
-  const getAuthToken = async () => {
-    try {
-      const response = await axios.get(AUTH_ENDPOINT, {
-        headers: {
-          'x-business-id': businessId,
-        },
-      });
-      const newToken = response.data.token;
-      setAuthToken(newToken);
-      sessionStorage.setItem('authToken', newToken);
-      sessionStorage.setItem('businessId', businessId);
-    } catch (error) {
-      console.error('Error getting auth token:', error);
-    }
-  };
 
   const appendMessage = (messageText, isUser) => {
     setMessages(prevMessages => [...prevMessages, { text: messageText, isUser }]);
@@ -91,11 +137,11 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
       };
 
       try {
-        if (!authToken) {
+        if (!authToken || Date.now() >= tokenExpirationTime) {
           await getAuthToken();
         }
 
-        const response = await axios.post(GENERATE_ENDPOINT, payload, {
+        const response = await axiosInstance.post(GENERATE_ENDPOINT, payload, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${authToken}`,
@@ -122,8 +168,15 @@ const ChatBox = ({ isVisible, onClose, setMessages, messages, isMobile, business
         console.error('Error sending message:', error);
         if (error.response && error.response.status === 401) {
           // Token is invalid, get a new one and retry
-          await getAuthToken();
-          await sendMessage(content, isUser);
+          try {
+            await getAuthToken();
+            await sendMessage(content, isUser);
+          } catch (retryError) {
+            console.error('Error retrying after token refresh:', retryError);
+            appendMessage("Sorry, I couldn't process your message. Please try again later.", false);
+          }
+        } else if (error.code === 'ECONNABORTED' || error.message === 'Network Error') {
+          appendMessage("Sorry, there seems to be a network issue. Please check your connection and try again.", false);
         } else {
           appendMessage("Sorry, I couldn't process your message. Please try again later.", false);
         }

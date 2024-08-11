@@ -31,7 +31,7 @@
   }
 
   .chat-box {
-    @apply flex flex-col bg-opacity-75 bacxkdrop-blur-3xl pb-1.5;
+    @apply flex flex-col bg-opacity-75 backdrop-blur-3xl pb-1.5;
     transition: all 0.3s ease-in-out, transform 0.3s ease-in-out;
     pointer-events: auto;
   }

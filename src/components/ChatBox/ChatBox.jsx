@@ -192,8 +192,7 @@ const ChatBox = ({
         } else {
           responseData = response.data.body;
         }
-
-        // Now you can safely access responseData and append messages as needed
+        
         if (responseData && responseData.response) {
           appendMessage(responseData.response, false);
         } else {
